@@ -15,9 +15,3 @@ void Tile::setGrid(int row, int col)
     grid.col = col;
 }
 
-void Tile::update(float delta)
-{
-}
-void Tile::draw(Window* window, float delta)
-{
-}

@@ -97,6 +97,7 @@ void Game::initAssets()
     _assets.tiles.wall = _display->createTexture(_assets.tiles.spriteSheet,"assets/img/tiles/wall.png");
     _assets.tiles.exit_open = _display->createTexture(_assets.tiles.spriteSheet,"assets/img/tiles/exit.png");
     _assets.tiles.exit_locked = _display->createTexture(_assets.tiles.spriteSheet,"assets/img/tiles/exit_locked.png");
+    _assets.tiles.computer = _display->createTexture(_assets.tiles.spriteSheet,"assets/img/tiles/computer.png");
     
     _assets.environment.spriteSheet = _display->createSpriteSheet(Rectangle(32,32),5,5);
     _assets.environment.crate = _display->createTexture(_assets.environment.spriteSheet,"assets/img/environments/crate.png");

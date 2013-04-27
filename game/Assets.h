@@ -38,6 +38,7 @@ struct TilesAssets
     Texture wall;
     Texture exit_open;
     Texture exit_locked;
+    Texture computer;
 };
 
 struct PlayerAssets
