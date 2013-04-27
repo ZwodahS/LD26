@@ -1,0 +1,5 @@
+*.xcf
+.DS_Store
+obj/
+mBot
+

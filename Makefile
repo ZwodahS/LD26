@@ -1,13 +1,8 @@
 vpath %.cpp framework/
 vpath %.cpp game/
-vpath %.cpp game/controller/
-vpath %.cpp game/setup/
-vpath %.cpp game/screen/
-vpath %.cpp game/ship/
-vpath %.cpp game/items/
 vpath %.o obj/
 
-BIN=deepU
+BIN=mBot
 CXX=g++
 
 SDL=`sdl-config --libs --cflags`
