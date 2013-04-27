@@ -6,7 +6,6 @@ struct InventoryAssets
 {
     SpriteSheet spriteSheet;
     Texture inventoryBG;
-    Texture placeholder;
     Texture ammo;
     Texture scrapmetal;
 };

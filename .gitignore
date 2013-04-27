@@ -1,4 +1,5 @@
 *.xcf
+*.swp
 .DS_Store
 obj/
 mBot

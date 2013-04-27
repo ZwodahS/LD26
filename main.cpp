@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "framework/zf_framework.h"
+#include "game/Game.h"
 int main(int argc , char * argv[])
 {
     // init the rng
@@ -13,5 +14,7 @@ int main(int argc , char * argv[])
     sc.init();
     d.init(640,640,640,640,32);
     
+    Game g = Game(&d,&sc);
+    g.run();    
 
 }

@@ -20,7 +20,6 @@ void Game::run()
     bool quit = false;
     FrameRateRegulator fps = FrameRateRegulator(50);
     EventController events; 
-
     while(!quit)
     {
         events.update();
@@ -43,27 +42,26 @@ void Game::run()
 void Game::initAssets()
 {
     _assets.bots.spriteSheet = _display->createSpriteSheet(Rectangle(32,32),10,10);
-    _assets.bots.red.up = _display->createTexture(_assets.bots.spriteSheet,"img/bot/red/up.png");
-    _assets.bots.red.right = _display->createTexture(_assets.bots.spriteSheet,"img/bot/red/right.png");
-    _assets.bots.red.down = _display->createTexture(_assets.bots.spriteSheet,"img/bot/red/down.png");
-    _assets.bots.red.left = _display->createTexture(_assets.bots.spriteSheet,"img/bot/red/left.png");
-    _assets.bots.blue.up = _display->createTexture(_assets.bots.spriteSheet,"img/bot/blue/up.png");
-    _assets.bots.blue.right = _display->createTexture(_assets.bots.spriteSheet,"img/bot/blue/right.png");
-    _assets.bots.blue.down = _display->createTexture(_assets.bots.spriteSheet,"img/bot/blue/down.png");
-    _assets.bots.blue.left = _display->createTexture(_assets.bots.spriteSheet,"img/bot/blue/left.png");
-    _assets.bots.green.up = _display->createTexture(_assets.bots.spriteSheet,"img/bot/green/up.png");
-    _assets.bots.green.right = _display->createTexture(_assets.bots.spriteSheet,"img/bot/green/right.png");
-    _assets.bots.green.down = _display->createTexture(_assets.bots.spriteSheet,"img/bot/green/down.png");
-    _assets.bots.green.left = _display->createTexture(_assets.bots.spriteSheet,"img/bot/green/left.png");
-    _assets.bots.player.up = _display->createTexture(_assets.bots.spriteSheet,"img/bot/player/up.png");
-    _assets.bots.player.right = _display->createTexture(_assets.bots.spriteSheet,"img/bot/player/right.png");
-    _assets.bots.player.down = _display->createTexture(_assets.bots.spriteSheet,"img/bot/player/down.png");
-    _assets.bots.player.left = _display->createTexture(_assets.bots.spriteSheet,"img/bot/player/left.png");
-
+    _assets.bots.red.up = _display->createTexture(_assets.bots.spriteSheet,"img/bots/red/up.png");
+    _assets.bots.red.right = _display->createTexture(_assets.bots.spriteSheet,"img/bots/red/right.png");
+    _assets.bots.red.down = _display->createTexture(_assets.bots.spriteSheet,"img/bots/red/down.png");
+    _assets.bots.red.left = _display->createTexture(_assets.bots.spriteSheet,"img/bots/red/left.png");
+    _assets.bots.blue.up = _display->createTexture(_assets.bots.spriteSheet,"img/bots/blue/up.png");
+    _assets.bots.blue.right = _display->createTexture(_assets.bots.spriteSheet,"img/bots/blue/right.png");
+    _assets.bots.blue.down = _display->createTexture(_assets.bots.spriteSheet,"img/bots/blue/down.png");
+    _assets.bots.blue.left = _display->createTexture(_assets.bots.spriteSheet,"img/bots/blue/left.png");
+    _assets.bots.green.up = _display->createTexture(_assets.bots.spriteSheet,"img/bots/green/up.png");
+    _assets.bots.green.right = _display->createTexture(_assets.bots.spriteSheet,"img/bots/green/right.png");
+    _assets.bots.green.down = _display->createTexture(_assets.bots.spriteSheet,"img/bots/green/down.png");
+    _assets.bots.green.left = _display->createTexture(_assets.bots.spriteSheet,"img/bots/green/left.png");
+    _assets.bots.player.up = _display->createTexture(_assets.bots.spriteSheet,"img/bots/player/up.png");
+    _assets.bots.player.right = _display->createTexture(_assets.bots.spriteSheet,"img/bots/player/right.png");
+    _assets.bots.player.down = _display->createTexture(_assets.bots.spriteSheet,"img/bots/player/down.png");
+    _assets.bots.player.left = _display->createTexture(_assets.bots.spriteSheet,"img/bots/player/left.png");
+    
     _assets.inventory.spriteSheet = _display->createSpriteSheet(Rectangle(48,48),5,5);
     _assets.inventory.inventoryBG = _display->createTexture(_assets.inventory.spriteSheet,"img/inventory/inventorybg.png");
     _assets.inventory.ammo = _display->createTexture(_assets.inventory.spriteSheet,"img/inventory/ammo.png");
-    _assets.inventory.placeholder = _display->createTexture(_assets.inventory.spriteSheet,"img/inventory/placeholder.png");
     _assets.inventory.scrapmetal = _display->createTexture(_assets.inventory.spriteSheet,"img/inventory/scrapmetal.png");
 
     _assets.selection.spriteSheet = _display->createSpriteSheet(Rectangle(8,8),2,2);
