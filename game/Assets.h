@@ -88,6 +88,15 @@ struct SelectionAssets
     Texture SE;    
 };
 
+struct FontsAssets
+{
+    Font* mono;   
+    ~FontsAssets()
+    {
+        delete mono;
+    }
+};
+
 struct Assets
 {
     SelectionAssets selection;
@@ -95,5 +104,6 @@ struct Assets
     EnvironmentAssets environment;
     TilesAssets tiles;
     BotsAssets bots;
+    FontsAssets fonts;
 };
 #endif
