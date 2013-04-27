@@ -1,5 +1,6 @@
 vpath %.cpp framework/
 vpath %.cpp game/
+vpath %.cpp game/screen
 vpath %.o obj/
 
 BIN=mBot
