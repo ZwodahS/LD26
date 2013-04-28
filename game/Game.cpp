@@ -116,4 +116,5 @@ void Game::initAssets()
 
     _assets.fonts.mono36 = _display->loadTrueTypeFont("assets/fonts/MostlyMono.ttf",48);
     _assets.fonts.mono20 = _display->loadTrueTypeFont("assets/fonts/MostlyMono.ttf",24);
+    initRooms();
 }

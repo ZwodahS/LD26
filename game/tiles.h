@@ -6,7 +6,6 @@
 class Game;
 class Tile
 {
-        
     public:
         Tile(Game* game);
         ~Tile();

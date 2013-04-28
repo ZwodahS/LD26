@@ -4,6 +4,7 @@
 #include "assets.h"
 #include "screen.h"
 #include "tiles.h"
+#include "gen.h"
 #include "../framework/zf_framework.h"
 class Game
 {
@@ -25,8 +26,13 @@ class Game
         Screen* currentScreen;            
     private:
         void initAssets();        
-
+        void initRooms();
         World* currentWorld;
+
+        std::vector<Room*> _templateRooms; // 
+        std::vector<Room*> _priorityRooms; // rooms that must be there.
+
+        void loadRoom(std::string roomFile);
 };
 #endif
 
