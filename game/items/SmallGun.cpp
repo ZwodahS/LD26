@@ -11,4 +11,6 @@ SmallGun::~SmallGun()
 }
 void SmallGun::draw(Window* window, float delta, int x , int y)
 {
+    window->draw(_game->_assets.inventory.inventoryBG,x,y);
+    window->draw(_game->_assets.inventory.smallGun,x,y);
 }

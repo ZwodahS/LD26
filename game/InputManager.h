@@ -12,8 +12,7 @@ class InputManager
         KeyboardState menu; // ESC
         KeyboardState fire; // fire weapon
         KeyboardState inventory; // Open inventory
-        KeyboardState selecttarget; // enter / space
-
+        KeyboardState select; // enter / space
         InputManager();
 
 

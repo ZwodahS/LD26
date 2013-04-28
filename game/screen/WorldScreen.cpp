@@ -30,9 +30,6 @@ bool WorldScreen::update(InputManager* inputs, float delta)
         _player->update(delta);
         return true;
     }
-    else if(moveMade >= _player->getMaxMove())
-    {
-    }
     else 
     {
         int x = 0;
@@ -63,8 +60,16 @@ bool WorldScreen::update(InputManager* inputs, float delta)
         }
         if(!(x==0 && y==0))
         {
-            if(world->moveBot(_player,x,y))
+            if(_player->getMoveCost()<=_player->getActionPoints() && world->moveBot(_player,x,y))
             {
+                _player->moved();
+            }
+        }
+        else
+        {
+            if(inputs->select.thisPressed)
+            {
+                endTurn();
             }
         }
     }
@@ -79,3 +84,12 @@ void WorldScreen::draw(float delta)
     assignedWindow->finalize();
 }
 
+void WorldScreen::endTurn()
+{
+    newTurn();
+}
+
+void WorldScreen::newTurn()
+{
+    _player->resetPoints();
+}

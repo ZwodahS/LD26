@@ -45,7 +45,8 @@ class WorldScreen : public Screen
         void init(Display* display,Window* parent);
         bool update(InputManager* inputs, float delta);
         void draw(float delta);
-
+        void endTurn();
+        void newTurn();
     private :
         CameraWindow* assignedWindow;
         World* world;

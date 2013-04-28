@@ -69,10 +69,17 @@ class PlayerBot : public Bot
         void draw(Window* window, float delta);
         void update(float delta);
 
-        int getMaxMove();
         
         Inventory* inventory;
+        int getActionPoints();
+        int getMaxPoints();
+        void resetPoints();
+        int getMoveCost();
+
+        void moved();
     protected:
+        int pointLeft;
+        int maxPoint;
 };
 
 
