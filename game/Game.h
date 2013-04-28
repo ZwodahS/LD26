@@ -27,7 +27,6 @@ class Game
     private:
         void initAssets();        
         void initRooms();
-        World* currentWorld;
 
         std::vector<Room*> _templateRooms; // 
         std::vector<Room*> _priorityRooms; // rooms that must be there.

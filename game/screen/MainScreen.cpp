@@ -22,7 +22,7 @@ void MainScreen::init(Display* display, Window* parent)
 bool MainScreen::update(InputManager* inputs, float delta)
 {
     //TODO : set it to a slower timing :D
-    color -= delta * 250;
+    color -= delta * 600;
     if(color < 0)
     {
         game->toGameScreen();

@@ -3,6 +3,7 @@
 namespace gconsts
 {
     const int TILE_SIZE = 32;
-
+    const int INV_SIZE = 48;
+    const int INV_SPACE = 10;
 }
 #endif

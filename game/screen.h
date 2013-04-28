@@ -4,6 +4,7 @@
 #include "World.h"
 #include "InputManager.h"
 #include "../framework/zf_framework.h"
+#include "Inventory.h"
 class Game;
 class InputManager;
 class GameData;
@@ -35,18 +36,6 @@ class MainScreen : public Screen
         int color;
 };
 
-class GameScreen : public Screen
-{
-    public :
-        GameScreen(Game* game);
-        ~GameScreen();
-        void init(Display* display,Window* parent);
-        bool update(InputManager* inputs, float delta);
-        void draw(float delta);
-
-    private :
-        Window* assignedWindow;
-};
 
 class WorldScreen : public Screen
 {
@@ -76,5 +65,42 @@ class CleanupScreen : public Screen
 
     private :
         Window* assignedWindow;
+};
+
+class InventoryScreen : public Screen
+{
+    public :
+        InventoryScreen(Game* game,Inventory* inventory);
+        void init(Display* display, Window* parent);
+        bool update(InputManager* inputs, float delta);
+        void draw(float delta);
+
+    private:
+        Inventory* inventory;
+        Window* assignedWindow;
+        int selectedIndex;
+};
+
+class GameScreen : public Screen
+{
+    public :
+        GameScreen(Game* game);
+        ~GameScreen();
+        void init(Display* display,Window* parent);
+        bool update(InputManager* inputs, float delta);
+        void draw(float delta);
+
+    private :
+        Window* assignedWindow;
+        Display* storedDisplay;
+
+        PlayerBot* _player;
+
+        InventoryScreen* invScreen;
+        WorldScreen* worldScreen;
+
+        World* currentWorld;
+
+        void toggleInventory();
 };
 #endif

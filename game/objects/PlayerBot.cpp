@@ -1,9 +1,12 @@
 #include "../objects.h"
 #include "../Game.h"
+#include "../Inventory.h"
 #include <iostream>
 PlayerBot::PlayerBot(Game* game)
     :Bot(game)
 {
+    inventory = new Inventory();
+    inventory->addItem(new SmallAmmo(game,3));
 }
 
 void PlayerBot::draw(Window* window, float delta)

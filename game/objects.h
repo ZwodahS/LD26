@@ -2,7 +2,7 @@
 #define _GAME_OBJECTS_H_
 
 #include "../framework/zf_framework.h"
-
+class Inventory;
 class Game;
 class MapObject
 {
@@ -70,7 +70,8 @@ class PlayerBot : public Bot
         void update(float delta);
 
         int getMaxMove();
-
+        
+        Inventory* inventory;
     protected:
 };
 

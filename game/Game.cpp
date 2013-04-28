@@ -54,13 +54,7 @@ void Game::run()
 void Game::toGameScreen()
 {
     delete currentScreen;
-    currentWorld = new World(this);
-    currentWorld->initWorld(generateWorld(15,15));
-    currentWorld->initEnemies(10);
-    PlayerBot* player = new PlayerBot(this);
-    WorldScreen* temp = new WorldScreen(this,currentWorld,player);
-    currentWorld->initPlayer(player);
-    currentScreen = temp;
+    currentScreen = new GameScreen(this);
     currentScreen->init(_display,_display->getParentWindow());
 }
 
