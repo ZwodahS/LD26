@@ -32,6 +32,7 @@ class MainScreen : public Screen
     private :
         int selection;
         Window* assignedWindow;
+        int color;
 };
 
 class GameScreen : public Screen

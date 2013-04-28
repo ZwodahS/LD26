@@ -29,7 +29,7 @@ void World::initEnemies(int number)
 {
     for(int i = 0 ; i < number ; i ++)
     {
-        int x = rand() % 3;
+        int x = rand() % 4;
         if(x == 0)
         {
             _enemyBots.push_back(new RedBot(_game));
@@ -41,6 +41,10 @@ void World::initEnemies(int number)
         else if(x == 2)
         {
             _enemyBots.push_back(new GreenBot(_game));
+        }
+        else if(x == 3)
+        {
+            _enemyBots.push_back(new PlayerBot(_game));
         }
     }
     for(int i = 0 ; i < number ; i++)

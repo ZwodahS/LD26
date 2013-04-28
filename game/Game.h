@@ -19,10 +19,14 @@ class Game
 
         Assets _assets;
         std::vector<std::vector<Tile*> > generateWorld(int row , int col);
+
+        void toGameScreen();
     protected:
         Screen* currentScreen;            
     private:
         void initAssets();        
+
+        World* currentWorld;
 };
 #endif
 

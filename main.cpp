@@ -12,7 +12,7 @@ int main(int argc , char * argv[])
     // sound stuffs
     SoundControl sc = SoundControl();
     sc.init();
-    d.init(640,640,320,320,32);
+    d.init(640,640,640,640,32);
     
     Game g = Game(&d,&sc);
     g.run();    

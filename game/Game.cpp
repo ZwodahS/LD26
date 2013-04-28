@@ -22,16 +22,10 @@ void Game::run()
     FrameRateRegulator fps = FrameRateRegulator(50);
     EventController events; 
 
-    //Screen* mainScreen = new MainScreen(this);
-    //mainScreen->init(_display,_display->getParentWindow());
-    //this->currentScreen = mainScreen;
+    Screen* mainScreen = new MainScreen(this);
+    mainScreen->init(_display,_display->getParentWindow());
+    this->currentScreen = mainScreen;
     
-    World w = World(this);
-    w.initWorld(generateWorld(10,10));
-    w.initEnemies(3);
-    Screen* worldScreen = new WorldScreen(this,&w);
-    worldScreen->init(_display,_display->getParentWindow());
-    this->currentScreen = worldScreen;
     while(!quit)
     {
         events.update();
@@ -47,14 +41,32 @@ void Game::run()
             if(currentScreen->update(_inputs,delta))
             {
                 currentScreen->draw(delta);
+
+                _display->flip();
             }
-            _display->flip();
         }
         fps.frameEnd();
     }
     std::cout << fps.frameCount << " " << fps.tickPassed << std::endl;
     std::cout << fps.averageFPS() << std::endl;
 }
+
+void Game::toGameScreen()
+{
+    delete currentScreen;
+    currentWorld = new World(this);
+    currentWorld->initWorld(generateWorld(35,35));
+    currentWorld->initEnemies(10);
+    currentScreen = new WorldScreen(this,currentWorld);
+    currentScreen->init(_display,_display->getParentWindow());
+}
+
+
+
+
+
+
+
 
 void Game::initAssets()
 {
@@ -102,5 +114,6 @@ void Game::initAssets()
     _assets.environment.spriteSheet = _display->createSpriteSheet(Rectangle(32,32),5,5);
     _assets.environment.crate = _display->createTexture(_assets.environment.spriteSheet,"assets/img/environments/crate.png");
 
-    _assets.fonts.mono = _display->loadTrueTypeFont("assets/fonts/MostlyMono.ttf",72);
+    _assets.fonts.mono36 = _display->loadTrueTypeFont("assets/fonts/MostlyMono.ttf",48);
+    _assets.fonts.mono20 = _display->loadTrueTypeFont("assets/fonts/MostlyMono.ttf",24);
 }
