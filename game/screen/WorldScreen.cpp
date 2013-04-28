@@ -1,6 +1,7 @@
 #include "../screen.h"
 #include "../Game.h"
 #include "../objects.h"
+#include "../consts.h"
 #include "../../framework/zf_framework.h"
 #include <iostream>
 
@@ -23,6 +24,7 @@ void WorldScreen::init(Display* display, Window* parent)
 
 bool WorldScreen::update(InputManager* inputs, float delta)
 {
+    assignedWindow->focusTo(_player->getCurrentPosition(),delta*1000);
     if(world->isAnimating())
     {
         _player->update(delta);
@@ -71,7 +73,9 @@ bool WorldScreen::update(InputManager* inputs, float delta)
 
 void WorldScreen::draw(float delta)
 {
-    world->draw(assignedWindow,delta);
+    int startRow = assignedWindow->visibleRowStarts(gconsts::TILE_SIZE);
+    int startCol = assignedWindow->visibleColStarts(gconsts::TILE_SIZE);
+    world->draw(assignedWindow,delta,startRow,startRow+assignedWindow->numberOfVisibleRows(gconsts::TILE_SIZE),startCol,startCol+assignedWindow->numberOfVisibleCols(gconsts::TILE_SIZE));
     assignedWindow->finalize();
 }
 

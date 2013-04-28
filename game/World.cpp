@@ -27,30 +27,48 @@ void World::initWorld(std::vector<std::vector<Tile*> > tiles)
 
 void World::initEnemies(int number)
 {
+    for(int i = 0 ; i < number ; i ++)
+    {
+        spawnEnemy();
+    }
+}
+
+void World::spawnEnemy()
+{
+    Grid g = findAEmptySpot();
+}
+
+
+Grid World::findAEmptySpot()
+{
+    int row = rand() % _tiles.size();
+    int col = rand() % _tiles[row].size();
+    while(!_tiles[row][col]->isPassable())
+    {
+        int rdiff = (rand() % 5 ) - 3;
+        int cdiff = (rand() % 5 ) - 3;
+        if(inRange(row+rdiff,col+cdiff))
+        {
+            row = row + rdiff;
+            col = col + cdiff; 
+        }
+    }
+    return Grid(row,col);
 }
 
 void World::initPlayer(PlayerBot* player)
 {
     this->_player = player;
     // TODO : find the starting location.
-    for(int r = 0 ; r < _tiles.size() ; r++)
-    {
-        for(int c = 0 ; c < _tiles.size() ; c++)
-        {
-            if(_tiles[r][c]->isPassable())
-            {
-                _player->setLocation(r,c);
-                _player->alignPosition();
-                return;
-            }
-        }
-    }
+    Grid g = findAEmptySpot();
+    _player->setLocation(g.row,g.col);
+    _player->alignPosition();
 }
-void World::draw(Window* window , float delta)
+void World::draw(Window* window , float delta,int startRow,int endRow,int startCol,int endCol)
 {
-    for(int r = 0 ; r < _tiles.size() ; r++)
+    for(int r = startRow ; r < (_tiles.size()<endRow?_tiles.size():endRow) ; r++)
     {
-        for(int c = 0 ; c < _tiles[r].size() ; c++)
+        for(int c = startCol ; c < (_tiles[r].size()<endCol?_tiles[r].size():endCol) ; c++)
         {
             _tiles[r][c]->draw(window,delta);
         }
@@ -109,4 +127,13 @@ bool World::moveBot(Bot* bot, int x, int y)
         return true;
     }
     return false;
+}
+
+bool World::inRange(int row, int col)
+{
+    if(row < 0 || row >= _tiles.size() || col < 0 || col >= _tiles[row].size())
+    {
+        return false;
+    }
+    return true;
 }
