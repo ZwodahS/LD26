@@ -27,8 +27,8 @@ void Game::run()
     //this->currentScreen = mainScreen;
     
     World w = World(this);
-    w.initWorld(generateWorld(50,50));
-
+    w.initWorld(generateWorld(10,10));
+    w.initEnemies(3);
     Screen* worldScreen = new WorldScreen(this,&w);
     worldScreen->init(_display,_display->getParentWindow());
     this->currentScreen = worldScreen;

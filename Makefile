@@ -2,6 +2,7 @@ vpath %.cpp framework/
 vpath %.cpp game/
 vpath %.cpp game/screen
 vpath %.cpp game/tiles
+vpath %.cpp game/objects
 vpath %.o obj/
 
 BIN=mBot

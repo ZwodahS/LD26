@@ -1,6 +1,7 @@
 #include "World.h"
 #include "Game.h"
 #include "consts.h"
+#include "objects.h"
 #include <iostream>
 World::World(Game* game)
 {
@@ -24,6 +25,31 @@ void World::initWorld(std::vector<std::vector<Tile*> > tiles)
     }
 }
 
+void World::initEnemies(int number)
+{
+    for(int i = 0 ; i < number ; i ++)
+    {
+        int x = rand() % 3;
+        if(x == 0)
+        {
+            _enemyBots.push_back(new RedBot(_game));
+        }
+        else if(x == 1)
+        {
+            _enemyBots.push_back(new BlueBot(_game));
+        }
+        else if(x == 2)
+        {
+            _enemyBots.push_back(new GreenBot(_game));
+        }
+    }
+    for(int i = 0 ; i < number ; i++)
+    {
+        _enemyBots[i]->setLocation(i,i);
+        _enemyBots[i]->alignPosition();
+    }
+}
+
 void World::draw(Window* window , float delta)
 {
     for(int r = 0 ; r < _tiles.size() ; r++)
@@ -32,6 +58,10 @@ void World::draw(Window* window , float delta)
         {
             _tiles[r][c]->draw(window,delta);
         }
+    }
+    for(int i = 0 ; i < _enemyBots.size() ; i++)
+    {
+        _enemyBots[i]->draw(window,delta);
     }
 }
 
