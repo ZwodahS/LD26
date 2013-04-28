@@ -51,7 +51,7 @@ class GameScreen : public Screen
 class WorldScreen : public Screen
 {
     public :
-        WorldScreen(Game* game,World* world);
+        WorldScreen(Game* game,World* world,PlayerBot* player);
         ~WorldScreen();
         void init(Display* display,Window* parent);
         bool update(InputManager* inputs, float delta);
@@ -60,6 +60,9 @@ class WorldScreen : public Screen
     private :
         CameraWindow* assignedWindow;
         World* world;
+        int moveMade;
+        
+        PlayerBot* _player;
 };
 
 class CleanupScreen : public Screen

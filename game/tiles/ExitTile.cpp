@@ -5,6 +5,7 @@ ExitTile::ExitTile(Game* game)
     :Tile(game)
 {
     locked = true;
+    type = Type_ExitTile;
 }
 
 ExitTile::~ExitTile()
@@ -26,5 +27,10 @@ void ExitTile::draw(Window* window, float delta)
     {
         window->draw(game->_assets.tiles.exit_open,grid.col*gconsts::TILE_SIZE,grid.row*gconsts::TILE_SIZE);
     }
+}
+
+bool ExitTile::isPassable()
+{
+    return true;
 }
 

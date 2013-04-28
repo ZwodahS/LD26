@@ -28,6 +28,13 @@ void PlayerBot::draw(Window* window, float delta)
 
 void PlayerBot::update(float delta)
 {
-
+    if(isMoving())
+    {
+        linearMove(delta);
+    }
 }
 
+int PlayerBot::getMaxMove()
+{
+    return 3;
+}

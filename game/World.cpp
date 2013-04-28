@@ -27,33 +27,25 @@ void World::initWorld(std::vector<std::vector<Tile*> > tiles)
 
 void World::initEnemies(int number)
 {
-    for(int i = 0 ; i < number ; i ++)
-    {
-        int x = rand() % 4;
-        if(x == 0)
-        {
-            _enemyBots.push_back(new RedBot(_game));
-        }
-        else if(x == 1)
-        {
-            _enemyBots.push_back(new BlueBot(_game));
-        }
-        else if(x == 2)
-        {
-            _enemyBots.push_back(new GreenBot(_game));
-        }
-        else if(x == 3)
-        {
-            _enemyBots.push_back(new PlayerBot(_game));
-        }
-    }
-    for(int i = 0 ; i < number ; i++)
-    {
-        _enemyBots[i]->setLocation(i,i);
-        _enemyBots[i]->alignPosition();
-    }
 }
 
+void World::initPlayer(PlayerBot* player)
+{
+    this->_player = player;
+    // TODO : find the starting location.
+    for(int r = 0 ; r < _tiles.size() ; r++)
+    {
+        for(int c = 0 ; c < _tiles.size() ; c++)
+        {
+            if(_tiles[r][c]->isPassable())
+            {
+                _player->setLocation(r,c);
+                _player->alignPosition();
+                return;
+            }
+        }
+    }
+}
 void World::draw(Window* window , float delta)
 {
     for(int r = 0 ; r < _tiles.size() ; r++)
@@ -67,9 +59,54 @@ void World::draw(Window* window , float delta)
     {
         _enemyBots[i]->draw(window,delta);
     }
+    _player->draw(window,delta);
 }
 
 Rectangle World::getDimension()
 {
     return Rectangle(0,0,_tiles[0].size() * gconsts::TILE_SIZE,_tiles.size() * gconsts::TILE_SIZE);
+}
+
+bool World::isAnimating()
+{
+    if(_player->isMoving())
+    {
+        return true;
+    }
+    for(int i = 0 ; i < _enemyBots.size() ; i++)
+    {
+        if(_enemyBots[i]->isMoving())
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool World::canMove(Bot* bot , int x , int y) // no diagonal movement. Current assumption is that |x| + |y| = 1
+{
+    Grid g = bot->getLocation();
+    Grid target = Grid(g.row+y , g.col+x);
+    if(target.row < 0 || target.col < 0 || target.col >= _tiles[0].size() || target.row >= _tiles.size())
+    {
+        return false;
+    }
+    if(_tiles[target.row][target.col]->isPassable())
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+bool World::moveBot(Bot* bot, int x, int y)
+{
+    if(canMove(bot,x,y))
+    {
+        bot->moveLocation(y,x);
+        return true;
+    }
+    return false;
 }

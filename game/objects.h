@@ -10,14 +10,21 @@ class MapObject
         MapObject(Game* game);
     
         void setLocation(int row, int col);
+        void moveLocation(int rowDiff , int colDiff);
         void setPosition(int x , int y);
         virtual void draw(Window* window,float delta) = 0;
         virtual void update(float delta) = 0;
         virtual void alignPosition();
+        virtual bool isMoving();
+        virtual Point2 getCurrentPosition();
+        virtual Point2 getTargetPosition();
+        virtual Grid getLocation();
     protected:
         Grid _location; // the current grid position
         Point2 _position; // the current position (draw movement)
         Game* _game;
+        int _moveSpeed ; // pixel per secs
+        void linearMove(float delta); // move the object directly to the target position.
 };
 
 class Bot : public MapObject
@@ -28,6 +35,7 @@ class Bot : public MapObject
         void faceTo(direction::Direction d);
     protected:
         direction::Direction facingDirection; 
+
 };
 
 class RedBot : public Bot
@@ -60,6 +68,10 @@ class PlayerBot : public Bot
         PlayerBot(Game* game);
         void draw(Window* window, float delta);
         void update(float delta);
+
+        int getMaxMove();
+
+    protected:
 };
 
 

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "World.h"
 #include "InputManager.h"
+#include "objects.h"
 #include <iostream>
 #include <string>
 Game::Game(Display* display, SoundControl* sc)
@@ -41,7 +42,6 @@ void Game::run()
             if(currentScreen->update(_inputs,delta))
             {
                 currentScreen->draw(delta);
-
                 _display->flip();
             }
         }
@@ -55,9 +55,12 @@ void Game::toGameScreen()
 {
     delete currentScreen;
     currentWorld = new World(this);
-    currentWorld->initWorld(generateWorld(35,35));
+    currentWorld->initWorld(generateWorld(7,7));
     currentWorld->initEnemies(10);
-    currentScreen = new WorldScreen(this,currentWorld);
+    PlayerBot* player = new PlayerBot(this);
+    WorldScreen* temp = new WorldScreen(this,currentWorld,player);
+    currentWorld->initPlayer(player);
+    currentScreen = temp;
     currentScreen->init(_display,_display->getParentWindow());
 }
 

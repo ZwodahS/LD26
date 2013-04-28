@@ -7,6 +7,7 @@
 #include <vector>
 class Game;
 class Bot;
+class PlayerBot;
 class World
 {
     public:
@@ -14,11 +15,20 @@ class World
         ~World();
         void initWorld(std::vector<std::vector<Tile*> > tiles);
         void initEnemies(int number);
+        void initPlayer(PlayerBot* player);
         void draw(Window* window, float delta);
+        bool isAnimating(); // return false if any of the bots are moving.
         Rectangle getDimension();
+
+
+        bool canMove(Bot* bot, int x , int y);
+        bool moveBot(Bot* bot, int x , int y);
+
     private:
         std::vector<std::vector<Tile*> > _tiles;
         std::vector<Bot*> _enemyBots;
+
+        PlayerBot* _player;
         Game* _game;
 
 };
