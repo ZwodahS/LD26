@@ -38,6 +38,7 @@ void Inventory::draw(Window* window, float delta,int selectedIndex)
             drawSelection(window,delta,col * (gconsts::INV_SIZE + gconsts::INV_SPACE), row * (gconsts::INV_SIZE + gconsts::INV_SPACE),(int)selection_offset,40);
         }
     }
+    info(window,delta,_items[selectedIndex],selectedIndex>50?0:1);
 }
 
 void Inventory::addItem(Item* item)
@@ -51,4 +52,11 @@ void Inventory::drawSelection(Window* window, float delta, int x , int y,int off
     window->draw(game->_assets.selection.NE,x+selection_width+(int)offset,y-(int)offset);
     window->draw(game->_assets.selection.SE,x+selection_width+(int)offset,y+selection_width+(int)offset);
     window->draw(game->_assets.selection.SW,x-(int)offset,y+selection_width+(int)offset);
+}
+
+// 0 = put it at top
+// 1 = put it at bottom
+void Inventory::info(Window* window, float delta , Item* item, int location) 
+{
+    window->draw(game->_assets.others.inventoryBackground,0,270*location); 
 }

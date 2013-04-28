@@ -110,6 +110,17 @@ struct FontsAssets
     }
 };
 
+struct OtherAssets
+{
+    Texture statsBackground;
+    Texture inventoryBackground; 
+    ~OtherAssets()
+    {
+        statsBackground.free();
+        inventoryBackground.free();
+    }    
+};
+
 struct Assets
 {
     SelectionAssets selection;
@@ -118,5 +129,6 @@ struct Assets
     TilesAssets tiles;
     BotsAssets bots;
     FontsAssets fonts;
+    OtherAssets others;
 };
 #endif

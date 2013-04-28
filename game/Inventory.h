@@ -21,6 +21,7 @@ class Inventory
         float selection_offset;
         float multiplier;
         void drawSelection(Window* window, float delta, int x , int y,int offset, int selection_width); // the location is the top left.
+        void info(Window* window, float delta,Item* item, int location);
         
 };
 

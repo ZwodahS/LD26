@@ -121,5 +121,8 @@ void Game::initAssets()
 
     _assets.fonts.mono36 = _display->loadTrueTypeFont("assets/fonts/MostlyMono.ttf",48);
     _assets.fonts.mono20 = _display->loadTrueTypeFont("assets/fonts/MostlyMono.ttf",24);
+
+    _assets.others.statsBackground = _display->loadImage("assets/img/others/stats.png");
+    _assets.others.inventoryBackground = _display->loadImage("assets/img/others/inv.png");
     initRooms();
 }

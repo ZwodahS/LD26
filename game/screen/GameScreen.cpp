@@ -34,6 +34,7 @@ void GameScreen::init(Display* display, Window* parent)
     worldScreen->init(display,assignedWindow); 
     
     invScreen= NULL;
+    statsScreen = NULL;
 }
 void GameScreen::toggleInventory()
 {
@@ -44,8 +45,29 @@ void GameScreen::toggleInventory()
     }
     else
     {
+        if(statsScreen != NULL)
+        {
+            toggleStats();
+        }
         invScreen = new InventoryScreen(game,_player->inventory);
         invScreen->init(storedDisplay,assignedWindow);
+    }
+}
+void GameScreen::toggleStats()
+{
+    if(statsScreen != NULL)
+    {
+        delete statsScreen;
+        statsScreen = NULL;
+    }
+    else
+    {
+        if(invScreen != NULL)
+        {
+            toggleInventory();
+        }
+        statsScreen = new StatsScreen(game,_player);
+        statsScreen->init(storedDisplay,assignedWindow);
     }
 }
 bool GameScreen::update(InputManager* inputs, float delta)
@@ -53,6 +75,10 @@ bool GameScreen::update(InputManager* inputs, float delta)
     if(inputs->inventory.thisPressed)
     {
         toggleInventory();
+    }
+    else if(inputs->stats.thisPressed)
+    {
+        toggleStats();
     }
     else if(invScreen != NULL)
     {
@@ -72,9 +98,23 @@ void GameScreen::draw(float delta)
     if(worldScreen != NULL)
     {
         worldScreen->draw(delta);
+        std::string info = "HP:";
+        info+= toString(_player->getCurrentHp());
+        info+= "/";
+        info+= toString(_player->getMaxHp());
+        info+= "         ";
+        info+= "Action:";
+        info+= toString(_player->getActionPoints());
+        assignedWindow->drawString(info,game->_assets.fonts.mono36,Color(0,0,0),5,5);
+
+
     }
     if(invScreen != NULL)
     {
         invScreen->draw(delta);
+    }
+    if(statsScreen != NULL)
+    {
+        statsScreen->draw(delta);
     }
 }

@@ -33,9 +33,14 @@ class Bot : public MapObject
         Bot(Game* game);
         
         void faceTo(direction::Direction d);
+
+        int getCurrentHp();
+        virtual int getMaxHp();
     protected:
         direction::Direction facingDirection; 
 
+        int currentHp;
+        int maxHp;
 };
 
 class RedBot : public Bot

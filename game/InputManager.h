@@ -13,6 +13,7 @@ class InputManager
         KeyboardState fire; // fire weapon
         KeyboardState inventory; // Open inventory
         KeyboardState select; // enter / space
+        KeyboardState stats;
         InputManager();
 
 

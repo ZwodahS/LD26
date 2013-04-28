@@ -82,6 +82,19 @@ class InventoryScreen : public Screen
         int selectedIndex;
 };
 
+class StatsScreen : public Screen
+{
+    public :
+        StatsScreen(Game* game, PlayerBot* player);
+        ~StatsScreen();
+        void init(Display* display,Window* parent);
+        bool update(InputManager* inputs, float delta);
+        void draw(float delta);
+
+    private:
+        Window* assignedWindow;
+        PlayerBot* player;
+};
 class GameScreen : public Screen
 {
     public :
@@ -99,9 +112,11 @@ class GameScreen : public Screen
 
         InventoryScreen* invScreen;
         WorldScreen* worldScreen;
+        StatsScreen* statsScreen;
 
         World* currentWorld;
 
         void toggleInventory();
+        void toggleStats();
 };
 #endif

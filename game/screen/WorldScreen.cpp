@@ -82,6 +82,7 @@ void WorldScreen::draw(float delta)
     int startCol = assignedWindow->visibleColStarts(gconsts::TILE_SIZE);
     world->draw(assignedWindow,delta,startRow,startRow+assignedWindow->numberOfVisibleRows(gconsts::TILE_SIZE),startCol,startCol+assignedWindow->numberOfVisibleCols(gconsts::TILE_SIZE));
     assignedWindow->finalize();
+
 }
 
 void WorldScreen::endTurn()

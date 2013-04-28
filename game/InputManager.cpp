@@ -11,6 +11,7 @@ InputManager::InputManager()
     menu = KeyboardState(SDLK_ESCAPE);
     fire = KeyboardState(SDLK_f);
     inventory = KeyboardState(SDLK_i);
+    stats = KeyboardState(SDLK_c);
     select = KeyboardState(SDLK_SPACE);
 }
 
@@ -25,4 +26,5 @@ void InputManager::processInputs(float delta)
     zf_inputs::processKey(&fire);
     zf_inputs::processKey(&inventory);
     zf_inputs::processKey(&select);
+    zf_inputs::processKey(&stats);
 }
