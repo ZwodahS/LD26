@@ -53,6 +53,7 @@ class WorldScreen : public Screen
         int moveMade;
         
         PlayerBot* _player;
+        bool AITurn;
 };
 
 class CleanupScreen : public Screen

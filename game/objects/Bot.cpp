@@ -22,3 +22,10 @@ int Bot::getMaxHp()
 {
     return maxHp;
 }
+
+//return true if still alive
+bool Bot::damage(int amount)
+{
+    currentHp -= amount;
+    return currentHp > 0;
+}

@@ -10,6 +10,10 @@ World::World(Game* game)
 
 World::~World()
 {
+    for(int i = 0 ; i < _enemyBots.size() ; i++)
+    {
+        delete _enemyBots[i];
+    }
 }
 
 void World::initWorld(std::vector<std::vector<Tile*> > tiles)
@@ -24,7 +28,18 @@ void World::initWorld(std::vector<std::vector<Tile*> > tiles)
         }
     }
 }
-
+bool World::doNextAI()
+{
+    for(int i = 0 ; i < _enemyBots.size() ; i++)
+    {
+        if(_enemyBots[i]->stillHasMoves())
+        {
+            _enemyBots[i]->processAI(this);
+            return true;
+        }
+    }
+    return false;
+}
 void World::initEnemies(int number)
 {
     for(int i = 0 ; i < number ; i ++)
@@ -32,10 +47,30 @@ void World::initEnemies(int number)
         spawnEnemy();
     }
 }
+AIBot* randomBot(Game* game)
+{
+    int r = rand() % 3;
+    if(r == 0)
+    {
+        return new RedBot(game);
+    }
+    else if(r == 1)
+    {
+        return new BlueBot(game);
+    }
+    else
+    {
+        return new GreenBot(game);
+    }
 
+}
 void World::spawnEnemy()
 {
     Grid g = findAEmptySpot();
+    AIBot* bot = randomBot(_game);
+    bot->setLocation(g.row,g.col);
+    bot->alignPosition();
+    _enemyBots.push_back(bot);
 }
 
 
@@ -63,6 +98,16 @@ void World::initPlayer(PlayerBot* player)
     Grid g = findAEmptySpot();
     _player->setLocation(g.row,g.col);
     _player->alignPosition();
+}
+
+void World::update(float delta)
+{
+    _player->update(delta);
+    for(int i = 0 ; i < _enemyBots.size() ; i++)
+    {
+        _enemyBots[i]->update(delta);
+    }
+
 }
 void World::draw(Window* window , float delta,int startRow,int endRow,int startCol,int endCol)
 {
@@ -136,4 +181,109 @@ bool World::inRange(int row, int col)
         return false;
     }
     return true;
+}
+// return if this bot can see the player from this row / col
+bool World::canSeePlayer(int row , int col, int vision)
+{
+    clearTilesVisited();
+    std::vector<Tile*> cachedTiles = std::vector<Tile*>(0,NULL);
+    cachedTiles.push_back(_tiles[row][col]);
+    _tiles[row][col]->visitedValue = vision;
+    _tiles[row][col]->visited = true;
+    
+    for(int i = 0 ; i < cachedTiles.size() ; i++)
+    {
+        Grid g = cachedTiles[i]->getGrid();
+        if(!cachedTiles[i]->isPassable() || cachedTiles[i]->visitedValue == 0 ) // not passable then ignore it.
+        {
+            continue;
+        }
+        if(g.row == _player->getLocation().row && g.col == _player->getLocation().col)
+        {
+            return true;
+        }
+        if(inRange(g.row + 1, g.col) && !_tiles[g.row+1][g.col]->visited)
+        {
+            _tiles[g.row+1][g.col]->visitedValue = cachedTiles[i]->visitedValue - 1;
+            _tiles[g.row+1][g.col]->visited = true;
+            cachedTiles.push_back(_tiles[g.row+1][g.col]);
+        }
+        if(inRange(g.row - 1, g.col) && !_tiles[g.row-1][g.col]->visited)
+        {
+            _tiles[g.row-1][g.col]->visitedValue = cachedTiles[i]->visitedValue - 1;
+            _tiles[g.row-1][g.col]->visited = true;
+            cachedTiles.push_back(_tiles[g.row-1][g.col]);
+        }
+        if(inRange(g.row,g.col+1) && !_tiles[g.row][g.col+1]->visited)
+        {
+            _tiles[g.row][g.col+1]->visitedValue = cachedTiles[i]->visitedValue - 1;
+            _tiles[g.row][g.col+1]->visited = true;
+            cachedTiles.push_back(_tiles[g.row][g.col+1]);
+        }
+        if(inRange(g.row,g.col-1) && !_tiles[g.row][g.col-1]->visited)
+        {
+            _tiles[g.row][g.col-1]->visitedValue = cachedTiles[i]->visitedValue - 1;
+            _tiles[g.row][g.col-1]->visited = true;
+            cachedTiles.push_back(_tiles[g.row][g.col-1]);
+        }
+    }
+    return false;
+}
+
+void World::clearTilesVisited()
+{
+    for(int r = 0 ; r < _tiles.size() ; r ++)
+    {
+        for(int c = 0 ; c < _tiles[r].size() ; c++)
+        {
+            _tiles[r][c]->visited = false;
+            _tiles[r][c]->visitedValue = 0;
+        }
+    }
+}
+
+void World::attackPlayer(int damage, Bot* attackBot)
+{
+    _player->damage(damage);
+}
+
+Grid World::gridAt(Grid g, direction::Direction d)
+{
+    if(d == direction::North)
+    {
+        return Grid(g.row-1,g.col);
+    }
+    else if(d == direction::South)
+    {
+        return Grid(g.row+1,g.col);
+    }
+    else if(d == direction::East)
+    {
+        return Grid(g.row,g.col+1);
+    }
+    else
+    {
+        return Grid(g.row,g.col-1);
+    }
+}
+
+bool World::canMoveTo(Grid g)
+{
+    if(inRange(g.row,g.col))
+    {
+        if(_tiles[g.row][g.col]->isPassable())
+        {
+            return true;
+        }
+        return false;
+    }
+    return false;
+}
+
+void World::resetEnemyMoves()
+{
+    for(int i = 0 ; i < _enemyBots.size() ; i++)
+    {
+        _enemyBots[i]->resetMoves();
+    }
 }

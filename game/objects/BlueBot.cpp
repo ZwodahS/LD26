@@ -1,8 +1,11 @@
 #include "../objects.h"
 #include "../Game.h"
+#include "../World.h"
 BlueBot::BlueBot(Game* game)
-    :Bot(game)
+    :AIBot(game)
 {
+    maxMove = 2;
+    moveLeft = 2;
 }
 
 void BlueBot::draw(Window* window, float delta)
@@ -28,6 +31,41 @@ void BlueBot::draw(Window* window, float delta)
 
 void BlueBot::update(float delta)
 {
-
+    if(isMoving())
+    {
+        linearMove(delta);
+    }
 }
 
+void BlueBot::updateSight(World* world)
+{
+    if(world->canSeePlayer(_location.row,_location.col,6)) 
+    {
+        lastSeen = world->_player->getLocation();
+        hasSeen = true;
+    }
+}
+void BlueBot::processAI(World* world)
+{
+    bool seen;
+    if(world->canSeePlayer(_location.row,_location.col,6)) 
+    {
+        lastSeen = world->_player->getLocation();
+        hasSeen = true;
+        seen = true;
+    }
+    
+    if(seen && world->canSeePlayer(_location.row,_location.col,3))
+    {
+        world->attackPlayer(rand()%10 + 5, this);
+    }
+    else if(hasSeen)
+    {
+        moveTowardLastSeen(world);
+    }
+    else
+    {
+        randomMove();
+    }
+    moveLeft -= 1;
+}

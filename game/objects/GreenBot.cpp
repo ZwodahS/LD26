@@ -1,8 +1,11 @@
 #include "../objects.h"
 #include "../Game.h"
+#include "../World.h"
 GreenBot::GreenBot(Game* game)
-    :Bot(game)
+    :AIBot(game)
 {
+    moveLeft = 4;
+    maxMove = 4;
 }
 
 void GreenBot::draw(Window* window, float delta)
@@ -28,6 +31,42 @@ void GreenBot::draw(Window* window, float delta)
 
 void GreenBot::update(float delta)
 {
-
+    if(isMoving())
+    {
+        linearMove(delta);
+    }
+    
 }
 
+void GreenBot::updateSight(World* world)
+{
+    if(world->canSeePlayer(_location.row,_location.col,10)) 
+    {
+        lastSeen = world->_player->getLocation();
+        hasSeen = true;
+    }
+}
+void GreenBot::processAI(World* world)
+{
+    bool seen;
+    if(world->canSeePlayer(_location.row,_location.col,10)) 
+    {
+        lastSeen = world->_player->getLocation();
+        hasSeen = true;
+        seen = true;
+    }
+    
+    if(seen && world->canSeePlayer(_location.row,_location.col,2))
+    {
+        world->attackPlayer(rand()%10 + 5, this);
+    }
+    else if(hasSeen)
+    {
+        moveTowardLastSeen(world);
+    }
+    else
+    {
+        randomMove();
+    }
+    moveLeft -= 1;
+}

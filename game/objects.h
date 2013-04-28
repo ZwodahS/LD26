@@ -4,6 +4,7 @@
 #include "../framework/zf_framework.h"
 class Inventory;
 class Game;
+class World;
 class MapObject
 {
     public:
@@ -36,6 +37,8 @@ class Bot : public MapObject
 
         int getCurrentHp();
         virtual int getMaxHp();
+
+        bool damage(int amount);
     protected:
         direction::Direction facingDirection; 
 
@@ -43,28 +46,52 @@ class Bot : public MapObject
         int maxHp;
 };
 
-class RedBot : public Bot
+class AIBot : public Bot
+{
+    public:
+        AIBot(Game* game);
+        
+        void resetMoves();
+        bool stillHasMoves();
+        virtual void processAI(World* world) = 0;
+        void moveTowardLastSeen(World* world);
+        void randomMove(); // ask the AI to randomly move since not seen
+        virtual void updateSight(World* world)=0;
+    protected:
+        int maxMove;
+        int moveLeft;
+        bool hasSeen;
+        Grid lastSeen;
+};
+
+class RedBot : public AIBot
 {
     public:
         RedBot(Game* game);
         void draw(Window* window, float delta);
         void update(float delta);
+        void processAI(World* world);
+        void updateSight(World* world);
 };
 
-class BlueBot : public Bot
+class BlueBot : public AIBot
 {
     public:
         BlueBot(Game* game);
         void draw(Window* window, float delta);
         void update(float delta);
+        void processAI(World* world);
+        void updateSight(World* world);
 };
 
-class GreenBot : public Bot
+class GreenBot : public AIBot
 {
     public:
         GreenBot(Game* game);
         void draw(Window* window, float delta);
         void update(float delta);
+        void processAI(World* world);
+        void updateSight(World* world);
 };
 
 class PlayerBot : public Bot

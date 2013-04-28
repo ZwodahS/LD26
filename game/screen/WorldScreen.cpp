@@ -11,6 +11,7 @@ WorldScreen::WorldScreen(Game* game,World* world,PlayerBot* player)
     this->world = world;
     this->_player=player;
     moveMade = 0;
+    AITurn = false;
 }
 
 WorldScreen::~WorldScreen()
@@ -27,8 +28,16 @@ bool WorldScreen::update(InputManager* inputs, float delta)
     assignedWindow->focusTo(_player->getCurrentPosition(),delta*1000);
     if(world->isAnimating())
     {
-        _player->update(delta);
+        world->update(delta);
         return true;
+    }
+    else if(AITurn)
+    {
+        if(!world->doNextAI())
+        {
+            AITurn = false;
+            newTurn();
+        }    
     }
     else 
     {
@@ -87,10 +96,11 @@ void WorldScreen::draw(float delta)
 
 void WorldScreen::endTurn()
 {
-    newTurn();
+    AITurn = true;
 }
 
 void WorldScreen::newTurn()
 {
     _player->resetPoints();
+    world->resetEnemyMoves();
 }
