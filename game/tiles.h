@@ -27,11 +27,13 @@ class Tile
         virtual bool isPassable()=0;
 
         TileType type;
-
-
+        bool visible;
+        bool seen;
         // using in vision tracing
         bool visited; 
         int visitedValue;
+
+        void show();
     protected:
         Grid grid;
         Game* game;

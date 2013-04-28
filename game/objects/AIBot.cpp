@@ -118,6 +118,7 @@ void AIBot::moveTowardLastSeen(World* world)
     if(canMove)
     {
         setLocation(g.row,g.col);
+        faceTo(firstTry);
     }
     else
     {
@@ -126,6 +127,7 @@ void AIBot::moveTowardLastSeen(World* world)
         if(canMove)
         {
             setLocation(g.row,g.col);
+            faceTo(secondTry);
         }
         else
         {

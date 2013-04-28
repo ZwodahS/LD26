@@ -38,10 +38,13 @@ class World
 
 
         Grid gridAt(Grid g, direction::Direction d);
+        Tile* tileAt(Grid g);
         bool canMoveTo(Grid g);
 
         bool doNextAI();
         void resetEnemyMoves();
+
+        void vision(int row, int col , int vision);
     private:
         std::vector<std::vector<Tile*> > _tiles;
         std::vector<AIBot*> _enemyBots;
@@ -49,5 +52,6 @@ class World
         Game* _game;
         
         void clearTilesVisited();
+        void clearTilesVision();
 };
 #endif

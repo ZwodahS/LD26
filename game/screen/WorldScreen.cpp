@@ -21,6 +21,7 @@ WorldScreen::~WorldScreen()
 void WorldScreen::init(Display* display, Window* parent)
 {
     assignedWindow = parent->createCameraWindow(world->getDimension(),Rectangle(288,288,64,64));
+    world->vision(_player->getLocation().row,_player->getLocation().col,_player->getSight());
 }
 
 bool WorldScreen::update(InputManager* inputs, float delta)
@@ -72,6 +73,7 @@ bool WorldScreen::update(InputManager* inputs, float delta)
             if(_player->getMoveCost()<=_player->getActionPoints() && world->moveBot(_player,x,y))
             {
                 _player->moved();
+                world->vision(_player->getLocation().row,_player->getLocation().col,_player->getSight());
             }
         }
         else

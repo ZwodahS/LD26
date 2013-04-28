@@ -107,7 +107,7 @@ class PlayerBot : public Bot
         int getMaxPoints();
         void resetPoints();
         int getMoveCost();
-
+        int getSight();
         void moved();
     protected:
         int pointLeft;

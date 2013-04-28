@@ -120,7 +120,10 @@ void World::draw(Window* window , float delta,int startRow,int endRow,int startC
     }
     for(int i = 0 ; i < _enemyBots.size() ; i++)
     {
-        _enemyBots[i]->draw(window,delta);
+        if(tileAt(_enemyBots[i]->getLocation())->visible)
+        {
+            _enemyBots[i]->draw(window,delta);
+        }
     }
     _player->draw(window,delta);
 }
@@ -230,6 +233,65 @@ bool World::canSeePlayer(int row , int col, int vision)
     return false;
 }
 
+void World::vision(int row , int col , int vision)
+{
+    clearTilesVision();
+    std::vector<Tile*> cachedTiles = std::vector<Tile*>(0,NULL);
+    cachedTiles.push_back(_tiles[row][col]);
+    _tiles[row][col]->visitedValue = vision;
+    _tiles[row][col]->visited = true;
+    _tiles[row][col]->show();
+    
+    for(int i = 0 ; i < cachedTiles.size() ; i++)
+    {
+        Grid g = cachedTiles[i]->getGrid();
+        if(!cachedTiles[i]->isPassable() || cachedTiles[i]->visitedValue == 0 ) // not passable then ignore it.
+        {
+            continue;
+        }
+        if(inRange(g.row + 1, g.col) && !_tiles[g.row+1][g.col]->visited)
+        {
+            _tiles[g.row+1][g.col]->visitedValue = cachedTiles[i]->visitedValue - 1;
+            _tiles[g.row+1][g.col]->visited = true;
+            _tiles[g.row+1][g.col]->show();
+            cachedTiles.push_back(_tiles[g.row+1][g.col]);
+        }
+        if(inRange(g.row - 1, g.col) && !_tiles[g.row-1][g.col]->visited)
+        {
+            _tiles[g.row-1][g.col]->visitedValue = cachedTiles[i]->visitedValue - 1;
+            _tiles[g.row-1][g.col]->visited = true;
+            _tiles[g.row-1][g.col]->show();
+            cachedTiles.push_back(_tiles[g.row-1][g.col]);
+        }
+        if(inRange(g.row,g.col+1) && !_tiles[g.row][g.col+1]->visited)
+        {
+            _tiles[g.row][g.col+1]->visitedValue = cachedTiles[i]->visitedValue - 1;
+            _tiles[g.row][g.col+1]->visited = true;
+            _tiles[g.row][g.col+1]->show();
+            cachedTiles.push_back(_tiles[g.row][g.col+1]);
+        }
+        if(inRange(g.row,g.col-1) && !_tiles[g.row][g.col-1]->visited)
+        {
+            _tiles[g.row][g.col-1]->visitedValue = cachedTiles[i]->visitedValue - 1;
+            _tiles[g.row][g.col-1]->visited = true;
+            _tiles[g.row][g.col-1]->show();
+            cachedTiles.push_back(_tiles[g.row][g.col-1]);
+        }
+    }
+
+}
+void World::clearTilesVision()
+{
+    for(int r = 0 ; r < _tiles.size() ; r ++)
+    {
+        for(int c = 0 ; c < _tiles[r].size() ; c++)
+        {
+            _tiles[r][c]->visited = false;
+            _tiles[r][c]->visitedValue = 0;
+            _tiles[r][c]->visible = false;
+        }
+    }
+}
 void World::clearTilesVisited()
 {
     for(int r = 0 ; r < _tiles.size() ; r ++)
@@ -241,6 +303,7 @@ void World::clearTilesVisited()
         }
     }
 }
+
 
 void World::attackPlayer(int damage, Bot* attackBot)
 {
@@ -286,4 +349,12 @@ void World::resetEnemyMoves()
     {
         _enemyBots[i]->resetMoves();
     }
+}
+Tile* World::tileAt(Grid g)
+{
+    if(inRange(g.row,g.col))
+    {
+        return _tiles[g.row][g.col];
+    }
+    return NULL;
 }

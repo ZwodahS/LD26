@@ -79,3 +79,8 @@ void PlayerBot::moved()
     pointLeft -= getMoveCost();
     pointLeft = pointLeft < 0 ? 0 : pointLeft;
 }
+
+int PlayerBot::getSight()
+{
+    return 10;
+}

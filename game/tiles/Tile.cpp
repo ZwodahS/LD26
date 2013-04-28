@@ -6,6 +6,8 @@ Tile::Tile(Game* game)
     this->type = Type_Tile;
     this->visited = false;
     this->visitedValue = 0;
+    this->visible = false;
+    this->seen = false;
 }
 
 Tile::~Tile()
@@ -21,4 +23,10 @@ void Tile::setGrid(int row, int col)
 Grid Tile::getGrid()
 {
     return grid;
+}
+
+void Tile::show()
+{
+    visible = true;
+    seen = true;
 }
