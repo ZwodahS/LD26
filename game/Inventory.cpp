@@ -1,7 +1,11 @@
 #include "Inventory.h"
 #include "consts.h"
-Inventory::Inventory()
+#include "Game.h"
+Inventory::Inventory(Game* game)
 {
+    this->game = game;
+    selection_offset = 0;
+    multiplier = 1;
 }
 
 Inventory::~Inventory()
@@ -12,13 +16,26 @@ void Inventory::draw(Window* window, float delta,int selectedIndex)
 {
     int row = 0;
     int col = 0;
+    selection_offset += multiplier* delta * 10;
+    if(multiplier == 1 && selection_offset > 4)
+    {
+        multiplier = -1;
+    }
+    else if(multiplier == -1 && selection_offset < -4)
+    {
+        multiplier = 1;
+    }
     for(int i = 0 ; i < _items.size(); i++, col++)
     {
-        _items[i]->draw(window, delta, col * gconsts::INV_SIZE + gconsts::INV_SPACE, row * gconsts::INV_SIZE + gconsts::INV_SPACE);
         if(i != 0 && i % 10 == 0)
         {
             row ++;
             col = 0;
+        }
+        _items[i]->draw(window, delta, col * (gconsts::INV_SIZE + gconsts::INV_SPACE), row * (gconsts::INV_SIZE + gconsts::INV_SPACE));
+        if(i == selectedIndex)
+        {
+            drawSelection(window,delta,col * (gconsts::INV_SIZE + gconsts::INV_SPACE), row * (gconsts::INV_SIZE + gconsts::INV_SPACE),(int)selection_offset,40);
         }
     }
 }
@@ -26,4 +43,12 @@ void Inventory::draw(Window* window, float delta,int selectedIndex)
 void Inventory::addItem(Item* item)
 {
     this->_items.push_back(item);
+}
+
+void Inventory::drawSelection(Window* window, float delta, int x , int y,int offset, int selection_width)
+{
+    window->draw(game->_assets.selection.NW,x-(int)offset,y-(int)offset);
+    window->draw(game->_assets.selection.NE,x+selection_width+(int)offset,y-(int)offset);
+    window->draw(game->_assets.selection.SE,x+selection_width+(int)offset,y+selection_width+(int)offset);
+    window->draw(game->_assets.selection.SW,x-(int)offset,y+selection_width+(int)offset);
 }

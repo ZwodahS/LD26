@@ -1,6 +1,7 @@
 #include "../screen.h"
 #include "../objects.h"
 #include "../Game.h"
+#include <iostream>
 GameScreen::GameScreen(Game* game)
     :Screen(game)
 {
@@ -31,7 +32,8 @@ void GameScreen::init(Display* display, Window* parent)
     currentWorld->initPlayer(_player);
     worldScreen = new WorldScreen(game,currentWorld,_player);
     worldScreen->init(display,assignedWindow); 
-
+    
+    invScreen= NULL;
 }
 void GameScreen::toggleInventory()
 {
@@ -51,6 +53,10 @@ bool GameScreen::update(InputManager* inputs, float delta)
     if(inputs->inventory.thisPressed)
     {
         toggleInventory();
+    }
+    else if(invScreen != NULL)
+    {
+        invScreen->update(inputs,delta);
     }
     else
     {

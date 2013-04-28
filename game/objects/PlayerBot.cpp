@@ -5,7 +5,22 @@
 PlayerBot::PlayerBot(Game* game)
     :Bot(game)
 {
-    inventory = new Inventory();
+    inventory = new Inventory(game);
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new SmallAmmo(game,3));
     inventory->addItem(new SmallAmmo(game,3));
 }
 

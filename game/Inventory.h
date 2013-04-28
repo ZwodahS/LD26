@@ -3,12 +3,12 @@
 
 #include "items.h"
 #include "../framework/zf_framework.h"
-
+class Game;
 class Inventory
 {
     
     public:
-        Inventory();
+        Inventory(Game* game);
         ~Inventory();
 
         void draw(Window* window, float delta,int selectedIndex);
@@ -16,6 +16,12 @@ class Inventory
         std::vector<Item*> _items;
 
         void addItem(Item* item);
+    private:
+        Game* game;
+        float selection_offset;
+        float multiplier;
+        void drawSelection(Window* window, float delta, int x , int y,int offset, int selection_width); // the location is the top left.
+        
 };
 
 

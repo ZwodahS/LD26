@@ -22,11 +22,9 @@ void Game::run()
     bool quit = false;
     FrameRateRegulator fps = FrameRateRegulator(50);
     EventController events; 
-
     Screen* mainScreen = new MainScreen(this);
     mainScreen->init(_display,_display->getParentWindow());
     this->currentScreen = mainScreen;
-    
     while(!quit)
     {
         events.update();
@@ -53,7 +51,10 @@ void Game::run()
 
 void Game::toGameScreen()
 {
-    delete currentScreen;
+    if(currentScreen != NULL)
+    {
+        delete currentScreen;
+    }
     currentScreen = new GameScreen(this);
     currentScreen->init(_display,_display->getParentWindow());
 }
