@@ -7,8 +7,8 @@
 #define ROOM_SIZE 5
 void Game::initRooms()
 {
-    _templateRooms = std::vector<Room*>(0, NULL);    
-    _priorityRooms = std::vector<Room*>(0, NULL);    
+    _templateRooms = std::vector<Room*>();
+    _priorityRooms = std::vector<Room*>();
 
     loadRoom("assets/rooms/01.r");
     loadRoom("assets/rooms/02.r");
@@ -34,9 +34,9 @@ void Game::loadRoom(const std::string roomFile)
         getline(file,line);
         if(line[0] == 'P') // prority
         {
-            priority = true; 
+            priority = true;
         }
-        else 
+        else
         {
             int value = 1;
             toInt(line,value);
@@ -71,7 +71,7 @@ void Game::loadRoom(const std::string roomFile)
 }
 std::vector<std::vector<Tile*> > Game::generateWorld(int row, int col)
 {
-    std::vector<std::vector<Tile*> > tiles = std::vector<std::vector<Tile*> >(row*ROOM_SIZE,std::vector<Tile*>(col*ROOM_SIZE,NULL));
+    std::vector<std::vector<Tile*> > tiles = std::vector<std::vector<Tile*> >(row*ROOM_SIZE,std::vector<Tile*>(col*ROOM_SIZE));
     for(int r = 0 ; r < row ; r++)
     {
         for(int c = 0 ; c < col ; c++)

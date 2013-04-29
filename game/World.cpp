@@ -95,7 +95,7 @@ Grid World::findAEmptySpot()
         if(inRange(row+rdiff,col+cdiff))
         {
             row = row + rdiff;
-            col = col + cdiff; 
+            col = col + cdiff;
         }
     }
     return Grid(row,col);
@@ -215,11 +215,11 @@ bool World::inRange(int row, int col)
 bool World::canSeePlayer(int row , int col, int vision)
 {
     clearTilesVisited();
-    std::vector<Tile*> cachedTiles = std::vector<Tile*>(0,NULL);
+    std::vector<Tile*> cachedTiles = std::vector<Tile*>(0);
     cachedTiles.push_back(_tiles[row][col]);
     _tiles[row][col]->visitedValue = vision;
     _tiles[row][col]->visited = true;
-    
+
     for(int i = 0 ; i < cachedTiles.size() ; i++)
     {
         Grid g = cachedTiles[i]->getGrid();
@@ -262,12 +262,12 @@ bool World::canSeePlayer(int row , int col, int vision)
 void World::vision(int row , int col , int vision)
 {
     clearTilesVision();
-    std::vector<Tile*> cachedTiles = std::vector<Tile*>(0,NULL);
+    std::vector<Tile*> cachedTiles = std::vector<Tile*>(0);
     cachedTiles.push_back(_tiles[row][col]);
     _tiles[row][col]->visitedValue = vision;
     _tiles[row][col]->visited = true;
     _tiles[row][col]->show();
-    
+
     for(int i = 0 ; i < cachedTiles.size() ; i++)
     {
         Grid g = cachedTiles[i]->getGrid();
@@ -390,7 +390,7 @@ void World::playerEnteredTile(PlayerBot* player)
     Grid g = player->getLocation();
     if(g == exitGrid)
     {
-        // do nothing for now        
+        // do nothing for now
     }
     else if (g == computerGrid)
     {
