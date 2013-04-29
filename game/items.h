@@ -24,6 +24,7 @@ class Item
         Game* _game;
         virtual int getCount();
         virtual void draw(Window* window, float delta, int x , int y) = 0;
+        virtual void drawInfo(Window* window, float delta, int x , int y) = 0;
 };
 
 class Resource : public Item
@@ -49,6 +50,7 @@ class SmallAmmo : public Ammo
         SmallAmmo(Game* game,int count);
         ~SmallAmmo();
         void draw(Window* window, float delta, int x , int y);
+        void drawInfo(Window* window, float delta, int x, int y);
 };
 
 class BombAmmo : public Ammo
@@ -57,6 +59,7 @@ class BombAmmo : public Ammo
         BombAmmo(Game* game,int count);
         ~BombAmmo();
         void draw(Window* window, float delta, int x , int y);
+        void drawInfo(Window* window, float delta, int x, int y);
 };
 
 
@@ -66,6 +69,7 @@ class ScrapMetal : public Resource
         ScrapMetal(Game* game,int count);
         ~ScrapMetal();
         void draw(Window* window, float delta, int x , int y);
+        void drawInfo(Window* window, float delta, int x, int y);
 };
 
 class Equipment : public Item
@@ -81,6 +85,7 @@ class Wrench : public Equipment
         Wrench(Game* game);
         ~Wrench();
         void draw(Window* window, float delta, int x , int y);
+        void drawInfo(Window* window, float delta, int x, int y);
 };
 
 class SmallGun : public Equipment
@@ -89,6 +94,7 @@ class SmallGun : public Equipment
         SmallGun(Game* game);
         ~SmallGun();
         void draw(Window* window, float delta, int x , int y);
+        void drawInfo(Window* window, float delta, int x, int y);
         
 };
 
@@ -98,6 +104,7 @@ class BombLauncher : public Equipment
         BombLauncher(Game* game);
         ~BombLauncher();
         void draw(Window* window, float delta, int x , int y);
+        void drawInfo(Window* window, float delta, int x, int y);
 };
 class Passive : public Item
 {
@@ -112,6 +119,7 @@ class DoorKey : public Passive
         DoorKey(Game* game,int color);
         ~DoorKey();
         void draw(Window* window, float delta, int x , int y);
+        void drawInfo(Window* window, float delta, int x, int y);
 
         int color;
 };

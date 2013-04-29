@@ -53,6 +53,7 @@ void Game::initAssets()
     _assets.environment.crate = _display->createTexture(_assets.environment.spriteSheet,"assets/img/environments/crate.png");
 
     _assets.fonts.mono36 = _display->loadTrueTypeFont("assets/fonts/MostlyMono.ttf",48);
+    _assets.fonts.mono28 = _display->loadTrueTypeFont("assets/fonts/MostlyMono.ttf",28);
     _assets.fonts.mono20 = _display->loadTrueTypeFont("assets/fonts/MostlyMono.ttf",24);
 
     _assets.others.statsBackground = _display->loadImage("assets/img/others/stats.png");

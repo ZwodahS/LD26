@@ -81,4 +81,5 @@ void Inventory::drawSelection(Window* window, float delta, int x , int y,int off
 void Inventory::info(Window* window, float delta , Item* item, int location) 
 {
     window->draw(game->_assets.others.inventoryBackground,0,270*location); 
+    item->drawInfo(window,delta,0,270*location);
 }

@@ -7,21 +7,11 @@ PlayerBot::PlayerBot(Game* game)
 {
     inventory = new Inventory(game);
     inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
-    inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new BombAmmo(game,3));
+    inventory->addItem(new ScrapMetal(game, 3));
+    inventory->addItem(new Wrench(game));
+    inventory->addItem(new SmallGun(game));
+    inventory->addItem(new BombLauncher(game));
     inventory->addItem(new DoorKey(game,0));
     inventory->addItem(new DoorKey(game,1));
     inventory->addItem(new DoorKey(game,2));

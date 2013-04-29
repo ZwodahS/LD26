@@ -39,3 +39,21 @@ void DoorKey::draw(Window* window, float delta, int x , int y)
         window->draw(_game->_assets.inventory.greenDoorCard,x,y);
     }
 }
+void DoorKey::drawInfo(Window* window, float delta, int x, int y)
+{
+    if(color == doorcolor::RED)
+    {
+        window->drawString("Red DoorKey ", _game->_assets.fonts.mono36,x+20,y+20);
+        window->drawString("   Unlock Red doors.", _game->_assets.fonts.mono28,x+20,y+70);
+    }
+    else if(color == doorcolor::GREEN)
+    {
+        window->drawString("Green DoorKey ", _game->_assets.fonts.mono36,x+20,y+20);
+        window->drawString("   Unlock Green doors.", _game->_assets.fonts.mono28,x+20,y+70);
+    }
+    else if(color == doorcolor::BLUE)
+    {
+        window->drawString("Blue DoorKey ", _game->_assets.fonts.mono36,x+20,y+20);
+        window->drawString("   Unlock Blue doors.", _game->_assets.fonts.mono28,x+20,y+70);
+    }
+}

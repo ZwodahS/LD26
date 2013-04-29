@@ -14,3 +14,8 @@ void SmallGun::draw(Window* window, float delta, int x , int y)
     window->draw(_game->_assets.inventory.inventoryBG,x,y);
     window->draw(_game->_assets.inventory.smallGun,x,y);
 }
+void SmallGun::drawInfo(Window* window, float delta, int x, int y)
+{
+    window->drawString("Small Gun", _game->_assets.fonts.mono36,x+20,y+20);
+    window->drawString("   Uses Small Ammo. Deals damage to enemy", _game->_assets.fonts.mono28,x+20,y+70);
+}

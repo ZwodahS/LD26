@@ -102,10 +102,12 @@ struct SelectionAssets
 struct FontsAssets
 {
     Font* mono20;   
+    Font* mono28;
     Font* mono36;
     ~FontsAssets()
     {
         delete mono36;
+        delete mono28;
         delete mono20;
     }
 };
