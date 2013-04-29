@@ -18,6 +18,7 @@ void ComputerTile::update(float delta)
 
 void ComputerTile::draw(Window* window, float delta)
 {
+    window->draw(game->_assets.tiles.floor,grid.col*gconsts::TILE_SIZE,grid.row*gconsts::TILE_SIZE);
     window->draw(game->_assets.tiles.computer,grid.col*gconsts::TILE_SIZE,grid.row*gconsts::TILE_SIZE);
     if(!visible)
     {

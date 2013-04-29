@@ -42,45 +42,63 @@ bool WorldScreen::update(InputManager* inputs, float delta)
     }
     else 
     {
-        int x = 0;
-        int y = 0;
-        if(inputs->up.thisPressed)
+        if(_player->getActionPoints() == 0)
         {
-            x = 0;
-            y = -1;
-            _player->faceTo(direction::North);
-        }
-        else if(inputs->down.thisPressed)
-        {
-            x = 0 ; 
-            y = 1;
-            _player->faceTo(direction::South);
-        }
-        else if(inputs->left.thisPressed)
-        {
-            x = -1;
-            y = 0;
-            _player->faceTo(direction::West);
-        }
-        else if(inputs->right.thisPressed)
-        {
-            x = 1;
-            y = 0;
-            _player->faceTo(direction::East);
-        }
-        if(!(x==0 && y==0))
-        {
-            if(_player->getMoveCost()<=_player->getActionPoints() && world->moveBot(_player,x,y))
-            {
-                _player->moved();
-                world->vision(_player->getLocation().row,_player->getLocation().col,_player->getSight());
-            }
+            endTurn();
         }
         else
         {
-            if(inputs->select.thisPressed)
+            int x = 0;
+            int y = 0;
+            if(inputs->up.thisPressed)
             {
-                endTurn();
+                x = 0;
+                y = -1;
+                _player->faceTo(direction::North);
+            }
+            else if(inputs->down.thisPressed)
+            {
+                x = 0 ; 
+                y = 1;
+                _player->faceTo(direction::South);
+            }
+            else if(inputs->left.thisPressed)
+            {
+                x = -1;
+                y = 0;
+                _player->faceTo(direction::West);
+            }
+            else if(inputs->right.thisPressed)
+            {
+                x = 1;
+                y = 0;
+                _player->faceTo(direction::East);
+            }
+            if(!(x==0 && y==0))
+            {
+                if(_player->canMove())
+                {
+                    if(world->moveBot(_player,x,y))
+                    {
+                        _player->moved();
+                        world->vision(_player->getLocation().row,_player->getLocation().col,_player->getSight());
+                        world->playerEnteredTile(_player);
+                    }
+                    else if(world->unlock(_player,x,y))
+                    {
+                        _player->moved();
+                        world->vision(_player->getLocation().row,_player->getLocation().col,_player->getSight());
+                    }
+
+
+                }
+            }
+            else
+            {
+                if(inputs->select.thisPressed)
+                {
+                    endTurn();
+                }
             }
         }
     }

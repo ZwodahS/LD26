@@ -23,6 +23,7 @@ class World
         Rectangle getDimension();
 
 
+        bool unlock(PlayerBot* bot, int x, int y);
         bool canMove(Bot* bot, int x , int y);
         bool moveBot(Bot* bot, int x , int y);
         
@@ -45,12 +46,19 @@ class World
         void resetEnemyMoves();
 
         void vision(int row, int col , int vision);
+
+        void playerEnteredTile(PlayerBot* player);
+        void unlockExit();
     private:
         std::vector<std::vector<Tile*> > _tiles;
         std::vector<AIBot*> _enemyBots;
 
         Game* _game;
-        
+         
+        Grid exitGrid;
+        Grid computerGrid;
+        ComputerTile* computerTile;
+        ExitTile* exitTile;
         void clearTilesVisited();
         void clearTilesVision();
 };

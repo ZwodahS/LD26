@@ -45,3 +45,7 @@ bool ExitTile::isPassable()
     return true;
 }
 
+void ExitTile::unlockExit()
+{
+    locked = false;
+}

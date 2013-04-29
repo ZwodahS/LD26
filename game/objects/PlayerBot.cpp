@@ -22,9 +22,12 @@ PlayerBot::PlayerBot(Game* game)
     inventory->addItem(new SmallAmmo(game,3));
     inventory->addItem(new SmallAmmo(game,3));
     inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new DoorKey(game,0));
+    inventory->addItem(new DoorKey(game,1));
+    inventory->addItem(new DoorKey(game,2));
     
-    maxPoint = 100;
-    pointLeft = 100;
+    maxPoint = 4;
+    pointLeft = 4;
 }
 
 void PlayerBot::draw(Window* window, float delta)
@@ -71,7 +74,7 @@ void PlayerBot::resetPoints()
 
 int PlayerBot::getMoveCost()
 {
-    return 50;
+    return 1;
 }
 
 void PlayerBot::moved()
@@ -83,4 +86,9 @@ void PlayerBot::moved()
 int PlayerBot::getSight()
 {
     return 10;
+}
+
+bool PlayerBot::canMove()
+{
+    return getMoveCost() <= getActionPoints();
 }

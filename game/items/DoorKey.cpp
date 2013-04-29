@@ -2,9 +2,21 @@
 #include "../Game.h"
 
 DoorKey::DoorKey(Game* game,int color)
-    :Passive(Type_Passive_DoorKey,game)
+    :Passive(Type_Passive_DoorKey_RED,game)
 {
     this->color = color;
+    if(color == doorcolor::RED)
+    {
+        _type = Type_Passive_DoorKey_RED;
+    }
+    else if(color == doorcolor::GREEN)
+    {
+        _type = Type_Passive_DoorKey_GREEN;
+    }
+    else if(color == doorcolor::BLUE)
+    {
+        _type = Type_Passive_DoorKey_BLUE;
+    }
 }
 DoorKey::~DoorKey()
 {

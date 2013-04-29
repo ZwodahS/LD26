@@ -1,6 +1,8 @@
 #include "../tiles.h"
 #include "../Game.h"
 #include "../consts.h"
+#include "../Inventory.h"
+#include <iostream>
 ColorDoorTile::ColorDoorTile(Game* game,int color)
     :Tile(game)
 {
@@ -59,4 +61,50 @@ bool ColorDoorTile::isPassable()
         return false;
     }
     return true;
+}
+
+bool ColorDoorTile::requiresUnlock()
+{
+    if(locked)
+    {
+        return true;
+    }
+    else 
+    {
+        return false;
+    }
+}
+
+bool ColorDoorTile::unlock(Inventory* inventory)
+{
+    if(color == doorcolor::RED)
+    {
+        if(inventory->hasItemType(Type_Passive_DoorKey_RED))
+        {
+            locked = false;
+            return true;
+        }
+        return false;
+    }
+    else if(color == doorcolor::BLUE)
+    {
+        if(inventory->hasItemType(Type_Passive_DoorKey_BLUE))
+        {
+            locked = false;
+            return true;
+        }
+        return false;
+
+    }
+    else if(color == doorcolor::GREEN)
+    {
+        if(inventory->hasItemType(Type_Passive_DoorKey_GREEN))
+        {
+            locked = false;
+            return true;
+        }
+        return false;
+
+    }
+    return false;
 }

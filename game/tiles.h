@@ -15,6 +15,7 @@ enum TileType
 
 };
 class Game;
+class Inventory;
 class Tile
 {
     public:
@@ -25,7 +26,8 @@ class Tile
         Grid getGrid();
         void setGrid(int row, int col);
         virtual bool isPassable()=0;
-
+        virtual bool requiresUnlock();
+        virtual bool unlock(Inventory* inventory);
         TileType type;
         bool visible;
         bool seen;
@@ -84,6 +86,8 @@ class ColorDoorTile : public Tile
         void update(float delta);
         void draw(Window* window, float delta);
         bool isPassable();
+        bool requiresUnlock();
+        bool unlock(Inventory* inventory);
     protected:
         int color ; //0 for red , 1 for green , 2 for blue
         bool locked;
@@ -96,6 +100,7 @@ class ExitTile : public Tile
         void update(float delta);
         void draw(Window* window, float delta);
         bool isPassable();
+        void unlockExit();
     protected:
         bool locked;
 };

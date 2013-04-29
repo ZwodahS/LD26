@@ -66,6 +66,8 @@ void Game::loadRoom(const std::string roomFile)
             _templateRooms.push_back(new Room(this,_template));
         }
     }
+
+
 }
 std::vector<std::vector<Tile*> > Game::generateWorld(int row, int col)
 {
@@ -85,6 +87,38 @@ std::vector<std::vector<Tile*> > Game::generateWorld(int row, int col)
                 }
             }
         }
+    }
+    std::vector<Grid> gs = std::vector<Grid>(0,Grid());
+    for(int i = 0 ; i < _priorityRooms.size() ; i++) // do all the priority
+    {
+        Room* room = _priorityRooms[i];
+        Grid temp;
+        while(true)
+        {
+            bool found = true;
+            temp = Grid(rand()%row,rand()%col);
+            for(int i = 0 ; i < gs.size() ; i++)
+            {
+                if (gs[i] == temp)
+                {
+                    break;
+                    found = false;
+                }
+            }
+            if(found)
+            {
+                break;
+            }
+        }
+        std::vector<std::vector<Tile*> > roomTiles = room->generateTile(rand()%4);
+        for(int innerR = 0 ; innerR < ROOM_SIZE ; innerR ++)
+        {
+            for(int innerC = 0 ; innerC < ROOM_SIZE ; innerC ++)
+            {
+                tiles[innerR + (temp.row*ROOM_SIZE)][innerC + (temp.col*ROOM_SIZE)] = roomTiles[innerR][innerC];
+            }
+        }
+        gs.push_back(temp);
     }
     return tiles;
 }

@@ -67,7 +67,7 @@ Tile* Room::getTile(int row, int col)
     }
     else if(t == 'D')
     {
-        int doDoor = rand() % 10; //1 in 10 chance of a door
+        int doDoor = rand() % 2; //1 in 10 chance of a door
         if(doDoor == 0)
         {
             int color = rand() % 3;

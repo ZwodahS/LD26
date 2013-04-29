@@ -10,3 +10,8 @@ Resource::Resource(ItemType type,Game* game,int count)
 Resource::~Resource()
 {
 }
+
+int Resource::getCount()
+{
+    return count;
+}

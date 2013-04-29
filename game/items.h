@@ -9,7 +9,9 @@ enum ItemType
     Type_Equipment_Wrench,
     Type_Equipment_SmallArm,
     Type_Equipment_BombLauncher,
-    Type_Passive_DoorKey,
+    Type_Passive_DoorKey_RED,
+    Type_Passive_DoorKey_BLUE,
+    Type_Passive_DoorKey_GREEN,
     Type_Passive_Augmentation,
 };
 class Game;
@@ -20,7 +22,7 @@ class Item
         ~Item();
         ItemType _type;
         Game* _game;
-
+        virtual int getCount();
         virtual void draw(Window* window, float delta, int x , int y) = 0;
 };
 
@@ -29,7 +31,7 @@ class Resource : public Item
     public:
         Resource(ItemType type,Game* game,int count);
         ~Resource();
-
+        virtual int getCount();
         int count;
 };
 

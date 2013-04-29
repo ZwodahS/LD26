@@ -30,3 +30,13 @@ void Tile::show()
     visible = true;
     seen = true;
 }
+
+bool Tile::requiresUnlock()
+{
+    return false;
+}
+
+bool Tile::unlock(Inventory* inventory)
+{
+    return false;
+}

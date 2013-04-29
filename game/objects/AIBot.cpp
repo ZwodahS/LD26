@@ -28,7 +28,6 @@ void AIBot::moveTowardLastSeen(World* world)
     int random = rand() % 2;
     direction::Direction firstTry;
     direction::Direction secondTry;
-    std::cout << "moving : " << g.row << " " << g.col << std::endl;
     if(random == 0) // try move in the longest distance first
     {
         if(abs(g.col) > abs(g.row))

@@ -41,6 +41,28 @@ void Inventory::draw(Window* window, float delta,int selectedIndex)
     info(window,delta,_items[selectedIndex],selectedIndex>50?0:1);
 }
 
+bool Inventory::hasItemType(ItemType type)
+{
+    hasItemType(type,1);
+}
+
+bool Inventory::hasItemType(ItemType type, int count)
+{
+    int counted = 0;
+    for(int i = 0 ; i < _items.size() ; i++)
+    {
+        if(_items[i]->_type == type)
+        {
+            counted+=_items[i]->getCount() ;
+        }
+        if(counted >= count)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 void Inventory::addItem(Item* item)
 {
     this->_items.push_back(item);

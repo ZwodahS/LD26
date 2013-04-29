@@ -25,6 +25,16 @@ void World::initWorld(std::vector<std::vector<Tile*> > tiles)
         {
             _tiles[r][c] = tiles[r][c];
             _tiles[r][c]->setGrid(r,c);
+            if(_tiles[r][c]->type == Type_ComputerTile)
+            {
+                computerGrid = Grid(r,c);
+                computerTile = (ComputerTile*)_tiles[r][c];
+            }
+            else if(_tiles[r][c]->type == Type_ExitTile)
+            {
+                exitGrid = Grid(r,c);
+                exitTile = (ExitTile*)_tiles[r][c];
+            }
         }
     }
 }
@@ -167,6 +177,22 @@ bool World::canMove(Bot* bot , int x , int y) // no diagonal movement. Current a
     }
 
 }
+
+bool World::unlock(PlayerBot* bot,int x , int y)
+{
+    Grid g = bot->getLocation();
+    Grid target = Grid(g.row+y , g.col+x);
+    if(target.row < 0 || target.col < 0 || target.col >= _tiles[0].size() || target.row >= _tiles.size())
+    {
+        return false;
+    }
+    if(_tiles[target.row][target.col]->requiresUnlock())
+    {
+        return _tiles[target.row][target.col]->unlock(bot->inventory);
+    }
+    return false;
+}
+
 bool World::moveBot(Bot* bot, int x, int y)
 {
     if(canMove(bot,x,y))
@@ -358,3 +384,23 @@ Tile* World::tileAt(Grid g)
     }
     return NULL;
 }
+
+void World::playerEnteredTile(PlayerBot* player)
+{
+    Grid g = player->getLocation();
+    if(g == exitGrid)
+    {
+        // do nothing for now        
+    }
+    else if (g == computerGrid)
+    {
+        unlockExit();
+    }
+
+}
+
+void World::unlockExit()
+{
+    exitTile->unlockExit();
+}
+

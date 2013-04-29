@@ -16,6 +16,9 @@ class Inventory
         std::vector<Item*> _items;
 
         void addItem(Item* item);
+
+        bool hasItemType(ItemType);
+        bool hasItemType(ItemType, int count);
     private:
         Game* game;
         float selection_offset;

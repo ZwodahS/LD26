@@ -11,4 +11,7 @@ Item::~Item()
 {
 }
 
-
+int Item::getCount()
+{
+    return 1;
+}
