@@ -22,14 +22,17 @@ void Game::initAssets()
     _assets.inventory.spriteSheet = _display->createSpriteSheet(Rectangle(48,48),5,5);
     _assets.inventory.inventoryBG = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/inventorybg.png");
     _assets.inventory.smallAmmo = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/smallammo.png");
+    _assets.inventory.heavyAmmo = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/placeholder.png");
     _assets.inventory.bombAmmo = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/placeholder.png");
     _assets.inventory.scrapmetal = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/scrapmetal.png");
     _assets.inventory.bombLauncher = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/placeholder.png");
+    _assets.inventory.sniperRifle = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/placeholder.png");
     _assets.inventory.smallGun = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/placeholder.png");
     _assets.inventory.wrench = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/placeholder.png");
     _assets.inventory.redDoorCard = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/placeholder.png");
     _assets.inventory.blueDoorCard = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/placeholder.png");
     _assets.inventory.greenDoorCard = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/placeholder.png");
+    _assets.inventory.augmentation = _display->createTexture(_assets.inventory.spriteSheet,"assets/img/inventory/placeholder.png");
 
     _assets.selection.spriteSheet = _display->createSpriteSheet(Rectangle(8,8),2,2);
     _assets.selection.NW = _display->createTexture(_assets.selection.spriteSheet,"assets/img/inventory/selection/NW.png");

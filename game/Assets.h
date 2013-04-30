@@ -6,18 +6,22 @@ struct InventoryAssets
 {
     SpriteSheet spriteSheet;
     Texture inventoryBG;
+
     Texture smallAmmo;
+    Texture heavyAmmo;
     Texture bombAmmo;
     Texture scrapmetal;
 
     Texture bombLauncher;
     Texture smallGun;
+    Texture sniperRifle;
     Texture wrench;
 
     Texture redDoorCard;
     Texture blueDoorCard;
     Texture greenDoorCard;
 
+    Texture augmentation;
 };
 
 struct EnvironmentAssets

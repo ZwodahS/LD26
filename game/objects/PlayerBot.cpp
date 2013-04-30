@@ -15,6 +15,10 @@ PlayerBot::PlayerBot(Game* game)
     inventory->addItem(new DoorKey(game,0));
     inventory->addItem(new DoorKey(game,1));
     inventory->addItem(new DoorKey(game,2));
+    inventory->addItem(new Augmentation(game,1,0,0));
+    inventory->addItem(new Augmentation(game,0,10,0));
+    inventory->addItem(new Augmentation(game,0,0,3));
+    inventory->addItem(new Augmentation(game,1,10,3));
     
     maxPoint = 4;
     pointLeft = 4;

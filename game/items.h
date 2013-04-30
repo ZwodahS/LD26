@@ -4,10 +4,12 @@
 enum ItemType
 {
     Type_Resource_Ammo_Small,
+    Type_Resource_Ammo_Heavy,
     Type_Resource_Ammo_Bomb,
     Type_Resource_ScrapMetal,
     Type_Equipment_Wrench,
     Type_Equipment_SmallArm,
+    Type_Equipment_SniperRifle,
     Type_Equipment_BombLauncher,
     Type_Passive_DoorKey_RED,
     Type_Passive_DoorKey_BLUE,
@@ -123,4 +125,18 @@ class DoorKey : public Passive
 
         int color;
 };
+
+class Augmentation : public Passive
+{
+    public:
+        Augmentation(Game* game,int ap, int hp, int vision);
+        ~Augmentation();
+        void draw(Window* window, float delta,int x, int y);
+        void drawInfo(Window* window, float delta, int x, int y);
+
+        int bonusHp;
+        int bonusAp;
+        int bonusVision;
+};
+
 #endif
