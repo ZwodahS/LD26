@@ -41,7 +41,7 @@ class World
         Grid gridAt(Grid g, direction::Direction d);
         Tile* tileAt(Grid g);
         bool canMoveTo(Grid g);
-
+        bool hasBot(int row , int col);
         bool doNextAI();
         void resetEnemyMoves();
 

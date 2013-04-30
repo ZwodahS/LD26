@@ -27,7 +27,7 @@ void GameScreen::init(Display* display, Window* parent)
     _player = new PlayerBot(game);
     currentWorld = new World(game);
     currentWorld->initWorld(game->generateWorld(4,4));
-    currentWorld->initEnemies(1);
+    currentWorld->initEnemies(4);
     currentWorld->initPlayer(_player);
     worldScreen = new WorldScreen(game,currentWorld,_player);
     worldScreen->init(display,assignedWindow); 

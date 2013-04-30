@@ -163,19 +163,31 @@ bool World::canMove(Bot* bot , int x , int y) // no diagonal movement. Current a
 {
     Grid g = bot->getLocation();
     Grid target = Grid(g.row+y , g.col+x);
-    if(target.row < 0 || target.col < 0 || target.col >= _tiles[0].size() || target.row >= _tiles.size())
+    if(canMoveTo(target))
     {
-        return false;
-    }
-    if(_tiles[target.row][target.col]->isPassable())
-    {
-        return true;
+        return true;    
     }
     else
     {
         return false;
     }
 
+}
+
+bool World::hasBot(int row, int col)
+{
+    for(int i = 0 ; i < _enemyBots.size() ; i++)
+    {
+        if(_enemyBots[i]->getLocation() == Grid(row,col))
+        {
+            return true;
+        }
+    }
+    if(_player->getLocation() == Grid(row, col))
+    {
+        return true;
+    }
+    return false;
 }
 
 bool World::unlock(PlayerBot* bot,int x , int y)
@@ -362,6 +374,10 @@ bool World::canMoveTo(Grid g)
     {
         if(_tiles[g.row][g.col]->isPassable())
         {
+            if(hasBot(g.row,g.col))
+            {
+                return false;
+            }
             return true;
         }
         return false;

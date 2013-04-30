@@ -55,6 +55,15 @@ class SmallAmmo : public Ammo
         void drawInfo(Window* window, float delta, int x, int y);
 };
 
+class HeavyAmmo: public Ammo
+{
+    public:
+        HeavyAmmo(Game* game, int count);
+        ~HeavyAmmo();
+        void draw(Window* window, float delta, int x, int y);
+        void drawInfo(Window* window, float delta, int x , int y);
+};
+
 class BombAmmo : public Ammo
 {
     public:
@@ -90,7 +99,14 @@ class Wrench : public Equipment
         void drawInfo(Window* window, float delta, int x, int y);
 };
 
-class SmallGun : public Equipment
+class Weapon : public Equipment
+{
+    public:
+        Weapon(ItemType type,Game* game);
+        ~Weapon();
+};
+
+class SmallGun : public Weapon
 {
     public:
         SmallGun(Game* game);
@@ -100,7 +116,17 @@ class SmallGun : public Equipment
         
 };
 
-class BombLauncher : public Equipment
+class SniperRifle : public Weapon
+{
+    public:
+        SniperRifle(Game* game);
+        ~SniperRifle();
+        void draw(Window* window, float delta, int x, int y);
+        void drawInfo(Window* window, float delta, int x , int y);
+
+};
+
+class BombLauncher : public Weapon
 {
     public:
         BombLauncher(Game* game);

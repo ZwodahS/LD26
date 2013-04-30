@@ -7,10 +7,12 @@ PlayerBot::PlayerBot(Game* game)
 {
     inventory = new Inventory(game);
     inventory->addItem(new SmallAmmo(game,3));
+    inventory->addItem(new HeavyAmmo(game,3));
     inventory->addItem(new BombAmmo(game,3));
     inventory->addItem(new ScrapMetal(game, 3));
     inventory->addItem(new Wrench(game));
     inventory->addItem(new SmallGun(game));
+    inventory->addItem(new SniperRifle(game));
     inventory->addItem(new BombLauncher(game));
     inventory->addItem(new DoorKey(game,0));
     inventory->addItem(new DoorKey(game,1));
@@ -22,6 +24,7 @@ PlayerBot::PlayerBot(Game* game)
     
     maxPoint = 4;
     pointLeft = 4;
+    equippedWeapon = NULL;
 }
 
 void PlayerBot::draw(Window* window, float delta)

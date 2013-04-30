@@ -2,6 +2,7 @@
 #define _GAME_OBJECTS_H_
 
 #include "../framework/zf_framework.h"
+#include "items.h"
 class Inventory;
 class Game;
 class World;
@@ -103,6 +104,8 @@ class PlayerBot : public Bot
 
         
         Inventory* inventory;
+
+        Weapon* equippedWeapon;
         int getActionPoints();
         int getMaxPoints();
         void resetPoints();
