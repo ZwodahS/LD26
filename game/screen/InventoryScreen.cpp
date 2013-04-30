@@ -1,9 +1,10 @@
 #include "../screen.h"
-
-InventoryScreen::InventoryScreen(Game* game,Inventory* inventory)
+#include "../objects.h"
+InventoryScreen::InventoryScreen(Game* game,PlayerBot* player)
     :Screen(game)
 {
-    this->inventory = inventory;
+    this->inventory = player->inventory;
+    this->player = player;
     selectedIndex = 0;
 }
 
@@ -35,6 +36,13 @@ bool InventoryScreen::update(InputManager* inputs, float delta)
         if(newIndex % 10 != 9)
         {
             newIndex += 1;
+        }
+    }
+    else if(inputs->equip.thisPressed)
+    {
+        if(inventory->_items[selectedIndex]->equippable())
+        {
+            player->equipWeapon( (Weapon*)inventory->_items[selectedIndex]);
         }
     }
     if(newIndex != selectedIndex)

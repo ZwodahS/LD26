@@ -47,7 +47,7 @@ void GameScreen::toggleInventory()
         {
             toggleStats();
         }
-        invScreen = new InventoryScreen(game,_player->inventory);
+        invScreen = new InventoryScreen(game,_player);
         invScreen->init(storedDisplay,assignedWindow);
     }
 }

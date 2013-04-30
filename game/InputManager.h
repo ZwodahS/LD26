@@ -14,6 +14,7 @@ class InputManager
         KeyboardState inventory; // Open inventory
         KeyboardState select; // enter / space
         KeyboardState stats;
+        KeyboardState equip;
         InputManager();
 
 

@@ -48,6 +48,7 @@ class WorldScreen : public Screen
         void endTurn();
         void newTurn();
         void fireWeapon();
+        void confirmFireWeapon();
     private :
         CameraWindow* assignedWindow;
         World* world;
@@ -75,13 +76,14 @@ class CleanupScreen : public Screen
 class InventoryScreen : public Screen
 {
     public :
-        InventoryScreen(Game* game,Inventory* inventory);
+        InventoryScreen(Game* game,PlayerBot* player);
         void init(Display* display, Window* parent);
         bool update(InputManager* inputs, float delta);
         void draw(float delta);
 
     private:
         Inventory* inventory;
+        PlayerBot* player;
         Window* assignedWindow;
         int selectedIndex;
 };

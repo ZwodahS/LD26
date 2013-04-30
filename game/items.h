@@ -28,6 +28,7 @@ class Item
         virtual int getCount();
         virtual void draw(Window* window, float delta, int x , int y) = 0;
         virtual void drawInfo(Window* window, float delta, int x , int y) = 0;
+        virtual bool equippable();
 };
 
 class Resource : public Item
@@ -110,8 +111,11 @@ class Weapon : public Equipment
     public:
         Weapon(ItemType type,Game* game);
         ~Weapon();
-        virtual bool canFireAt(World* world, Grid playerLocation, Grid targetLocation) = 0;
+        virtual bool canFireAt(World* world, PlayerBot* player, Grid targetLocation) = 0;
+        virtual void fireAt(World* world, PlayerBot* player, Grid targetLocation) = 0;
+        bool equipped;
 
+        bool equippable();
 };
 
 class SmallGun : public Weapon
@@ -122,7 +126,8 @@ class SmallGun : public Weapon
         void draw(Window* window, float delta, int x , int y);
         void drawInfo(Window* window, float delta, int x, int y);
 
-        bool canFireAt(World* world, Grid playerLocation, Grid targetLocation);
+        bool canFireAt(World* world, PlayerBot* player, Grid targetLocation);
+        void fireAt(World* world, PlayerBot* player, Grid targetLocation);
         
         int getActionCost();
 };
@@ -135,7 +140,8 @@ class SniperRifle : public Weapon
         void draw(Window* window, float delta, int x, int y);
         void drawInfo(Window* window, float delta, int x , int y);
 
-        bool canFireAt(World* world, Grid playerLocation, Grid targetLocation);
+        bool canFireAt(World* world, PlayerBot* player, Grid targetLocation);
+        void fireAt(World* world, PlayerBot* player, Grid targetLocation);
         int getActionCost();
 };
 
@@ -147,7 +153,8 @@ class BombLauncher : public Weapon
         void draw(Window* window, float delta, int x , int y);
         void drawInfo(Window* window, float delta, int x, int y);
 
-        bool canFireAt(World* world, Grid playerLocation, Grid targetLocation);
+        bool canFireAt(World* world, PlayerBot* player, Grid targetLocation);
+        void fireAt(World* world, PlayerBot* player, Grid targetLocation);
         int getActionCost();
 };
 class Passive : public Item

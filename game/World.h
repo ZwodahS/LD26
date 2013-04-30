@@ -19,7 +19,8 @@ class World
         void initPlayer(PlayerBot* player);
         void update(float delta);
         void draw(Window* window, float delta,int startRow, int endRow,int startCol ,int endCol);
-        void drawSelection(Window* window,Grid grid, bool selectable);
+        void drawSelection(Window* window, float delta,Grid grid, bool selectable);
+        void drawSelection(Window* window, float delta, int x , int y, int offset, int selection_width);
 
 
         bool isAnimating(); // return false if any of the bots are moving.
@@ -65,5 +66,9 @@ class World
         ExitTile* exitTile;
         void clearTilesVisited();
         void clearTilesVision();
+        
+        float selection_offset;
+        float multiplier;
+
 };
 #endif

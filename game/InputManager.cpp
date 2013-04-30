@@ -13,6 +13,7 @@ InputManager::InputManager()
     inventory = KeyboardState(SDLK_i);
     stats = KeyboardState(SDLK_c);
     select = KeyboardState(SDLK_SPACE);
+    equip = KeyboardState(SDLK_e);
 }
 
 
@@ -27,4 +28,5 @@ void InputManager::processInputs(float delta)
     zf_inputs::processKey(&inventory);
     zf_inputs::processKey(&select);
     zf_inputs::processKey(&stats);
+    zf_inputs::processKey(&equip);
 }

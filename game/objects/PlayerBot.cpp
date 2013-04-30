@@ -89,3 +89,13 @@ bool PlayerBot::canMove()
 {
     return getMoveCost() <= getActionPoints();
 }
+
+void PlayerBot::equipWeapon(Weapon* weapon)
+{
+    if(equippedWeapon != NULL)
+    {
+        equippedWeapon->equipped = false;
+    }
+    equippedWeapon = weapon;
+}
+

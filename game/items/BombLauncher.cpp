@@ -20,9 +20,13 @@ void BombLauncher::drawInfo(Window* window, float delta, int x, int y)
     window->drawString("   enemy or destroy wall.", _game->_assets.fonts.mono28,x+20,y+95);
 }
 
-bool BombLauncher::canFireAt(World* world, Grid playerLocation, Grid targetLocation)
+bool BombLauncher::canFireAt(World* world, PlayerBot* player, Grid targetLocation)
 {
     return true;
+}
+void BombLauncher::fireAt(World* world, PlayerBot* player, Grid targetLocation)
+{
+
 }
 
 int BombLauncher::getActionCost()

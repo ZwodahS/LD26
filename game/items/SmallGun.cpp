@@ -20,10 +20,15 @@ void SmallGun::drawInfo(Window* window, float delta, int x, int y)
     window->drawString("   Uses Small Ammo. Deals damage to enemy", _game->_assets.fonts.mono28,x+20,y+70);
 }
 
-bool SmallGun::canFireAt(World* world, Grid playerLocation, Grid targetLocation)
+bool SmallGun::canFireAt(World* world, PlayerBot* player, Grid targetLocation)
 {
     return true;
 }
+void SmallGun::fireAt(World* world, PlayerBot* player, Grid targetLocation)
+{
+
+}
+
 
 int SmallGun::getActionCost()
 {

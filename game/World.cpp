@@ -6,6 +6,7 @@
 World::World(Game* game)
 {
     this->_game = game;
+    multiplier = 1;
 }
 
 World::~World()
@@ -426,7 +427,24 @@ void World::unlockExit()
     exitTile->unlockExit();
 }
 
-void World::drawSelection(Window* window, Grid grid, bool selectable)
+void World::drawSelection(Window* window, float delta, Grid grid, bool selectable)
 {
+    selection_offset += multiplier * delta * 10;
+    if(multiplier == 1 && selection_offset > 2)
+    {
+        multiplier = -1;
+    }
+    else if(multiplier == -1 && selection_offset < -2)
+    {
+        multiplier = 1;
+    }
 
+    drawSelection(window,delta,grid.col * gconsts::TILE_SIZE, grid.row * gconsts::TILE_SIZE,(int)selection_offset,24);
+}
+void World::drawSelection(Window* window, float delta, int x , int y,int offset, int selection_width)
+{
+    window->draw(_game->_assets.selection.NW,x-(int)offset,y-(int)offset);
+    window->draw(_game->_assets.selection.NE,x+selection_width+(int)offset,y-(int)offset);
+    window->draw(_game->_assets.selection.SE,x+selection_width+(int)offset,y+selection_width+(int)offset);
+    window->draw(_game->_assets.selection.SW,x-(int)offset,y+selection_width+(int)offset);
 }

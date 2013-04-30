@@ -15,3 +15,8 @@ int Item::getCount()
 {
     return 1;
 }
+
+bool Item::equippable()
+{
+    return false;
+}

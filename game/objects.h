@@ -113,6 +113,8 @@ class PlayerBot : public Bot
         int getSight();
         void moved();
         bool canMove();
+
+        void equipWeapon(Weapon* weapon);
     protected:
         int pointLeft;
         int maxPoint;
