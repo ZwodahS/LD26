@@ -12,6 +12,7 @@ WorldScreen::WorldScreen(Game* game,World* world,PlayerBot* player)
     this->_player=player;
     moveMade = 0;
     AITurn = false;
+    weapon = NULL;
 }
 
 WorldScreen::~WorldScreen()
@@ -46,6 +47,32 @@ bool WorldScreen::update(InputManager* inputs, float delta)
         {
             endTurn();
         }
+        else if(weapon != NULL)
+        {
+            if(inputs->fire.thisPressed)
+            {
+                fireWeapon();
+            }
+            else if(inputs->up.thisPressed)
+            {
+                selectedGrid.row-=1;
+            }
+            else if(inputs->down.thisPressed)
+            {
+                selectedGrid.row+=1;
+            }
+            else if(inputs->left.thisPressed)
+            {
+                selectedGrid.col-=1;
+            }
+            else if(inputs->right.thisPressed)
+            {
+                selectedGrid.col+=1;
+            }
+            else if(inputs->select.thisPressed)
+            {
+            }
+        }
         else
         {
             int x = 0;
@@ -74,6 +101,10 @@ bool WorldScreen::update(InputManager* inputs, float delta)
                 y = 0;
                 _player->faceTo(direction::East);
             }
+            else if(inputs->fire.thisPressed)
+            {
+                fireWeapon();
+            }
             if(!(x==0 && y==0))
             {
                 if(_player->canMove())
@@ -89,8 +120,6 @@ bool WorldScreen::update(InputManager* inputs, float delta)
                         _player->moved();
                         world->vision(_player->getLocation().row,_player->getLocation().col,_player->getSight());
                     }
-
-
                 }
             }
             else
@@ -105,11 +134,34 @@ bool WorldScreen::update(InputManager* inputs, float delta)
     return true;
 }
 
+void WorldScreen::fireWeapon()
+{
+    if(weapon==NULL)
+    {
+        if(_player->equippedWeapon != NULL )
+        {
+            if(_player->equippedWeapon->getActionCost() > weapon->getActionCost())
+            {
+                weapon = _player->equippedWeapon;
+                selectedGrid = _player->getLocation();
+            }
+        }
+    }
+    else
+    {
+        weapon = NULL;
+    }
+}
+
 void WorldScreen::draw(float delta)
 {
     int startRow = assignedWindow->visibleRowStarts(gconsts::TILE_SIZE);
     int startCol = assignedWindow->visibleColStarts(gconsts::TILE_SIZE);
     world->draw(assignedWindow,delta,startRow,startRow+assignedWindow->numberOfVisibleRows(gconsts::TILE_SIZE),startCol,startCol+assignedWindow->numberOfVisibleCols(gconsts::TILE_SIZE));
+    if(weapon != NULL)
+    {
+        world->drawSelection(assignedWindow,selectedGrid,weapon->canFireAt(world,_player->getLocation(),selectedGrid));
+    }
     assignedWindow->finalize();
 
 }

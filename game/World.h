@@ -19,6 +19,9 @@ class World
         void initPlayer(PlayerBot* player);
         void update(float delta);
         void draw(Window* window, float delta,int startRow, int endRow,int startCol ,int endCol);
+        void drawSelection(Window* window,Grid grid, bool selectable);
+
+
         bool isAnimating(); // return false if any of the bots are moving.
         Rectangle getDimension();
 
@@ -49,6 +52,7 @@ class World
 
         void playerEnteredTile(PlayerBot* player);
         void unlockExit();
+
     private:
         std::vector<std::vector<Tile*> > _tiles;
         std::vector<AIBot*> _enemyBots;

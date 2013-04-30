@@ -20,3 +20,13 @@ void SniperRifle::drawInfo(Window* window, float delta, int x , int y)
     window->drawString("Sniper Rifle",_game->_assets.fonts.mono36,x+20,y+20);
     window->drawString("   High range weapon. Uses heavy ammo.",_game->_assets.fonts.mono28,x+20,y+70);
 }
+
+bool SniperRifle::canFireAt(World* world, Grid playerLocation, Grid targetLocation)
+{
+    return true;
+}
+
+int SniperRifle::getActionCost()
+{
+    return 2;
+}

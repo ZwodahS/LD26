@@ -19,3 +19,8 @@ void Wrench::drawInfo(Window* window, float delta, int x, int y)
     window->drawString("   Can be used to repair yourself.", _game->_assets.fonts.mono28,x+20,y+70);
     window->drawString("   Uses Scrap metal.", _game->_assets.fonts.mono28,x+20,y+95);
 }
+
+int Wrench::getActionCost()
+{
+    return 0;
+}

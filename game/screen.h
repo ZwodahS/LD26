@@ -47,6 +47,7 @@ class WorldScreen : public Screen
         void draw(float delta);
         void endTurn();
         void newTurn();
+        void fireWeapon();
     private :
         CameraWindow* assignedWindow;
         World* world;
@@ -54,6 +55,8 @@ class WorldScreen : public Screen
         
         PlayerBot* _player;
         bool AITurn;
+        Weapon* weapon;
+        Grid selectedGrid;
 };
 
 class CleanupScreen : public Screen

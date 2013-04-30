@@ -1,6 +1,7 @@
 #ifndef _GAME_ITEMS_H_
 #define _GAME_ITEMS_H_
 #include "../framework/zf_framework.h"
+#include "World.h"
 enum ItemType
 {
     Type_Resource_Ammo_Small,
@@ -88,6 +89,10 @@ class Equipment : public Item
     public:
         Equipment(ItemType type,Game* game);
         ~Equipment();
+
+
+        virtual int getActionCost() = 0 ;
+
 };
 
 class Wrench : public Equipment
@@ -97,6 +102,7 @@ class Wrench : public Equipment
         ~Wrench();
         void draw(Window* window, float delta, int x , int y);
         void drawInfo(Window* window, float delta, int x, int y);
+        int getActionCost();
 };
 
 class Weapon : public Equipment
@@ -104,6 +110,8 @@ class Weapon : public Equipment
     public:
         Weapon(ItemType type,Game* game);
         ~Weapon();
+        virtual bool canFireAt(World* world, Grid playerLocation, Grid targetLocation) = 0;
+
 };
 
 class SmallGun : public Weapon
@@ -113,7 +121,10 @@ class SmallGun : public Weapon
         ~SmallGun();
         void draw(Window* window, float delta, int x , int y);
         void drawInfo(Window* window, float delta, int x, int y);
+
+        bool canFireAt(World* world, Grid playerLocation, Grid targetLocation);
         
+        int getActionCost();
 };
 
 class SniperRifle : public Weapon
@@ -124,6 +135,8 @@ class SniperRifle : public Weapon
         void draw(Window* window, float delta, int x, int y);
         void drawInfo(Window* window, float delta, int x , int y);
 
+        bool canFireAt(World* world, Grid playerLocation, Grid targetLocation);
+        int getActionCost();
 };
 
 class BombLauncher : public Weapon
@@ -133,6 +146,9 @@ class BombLauncher : public Weapon
         ~BombLauncher();
         void draw(Window* window, float delta, int x , int y);
         void drawInfo(Window* window, float delta, int x, int y);
+
+        bool canFireAt(World* world, Grid playerLocation, Grid targetLocation);
+        int getActionCost();
 };
 class Passive : public Item
 {

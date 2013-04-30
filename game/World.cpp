@@ -138,6 +138,11 @@ void World::draw(Window* window , float delta,int startRow,int endRow,int startC
     _player->draw(window,delta);
 }
 
+void drawSelection(Window* window,Grid grid, bool selectable)
+{
+
+}
+
 Rectangle World::getDimension()
 {
     return Rectangle(0,0,_tiles[0].size() * gconsts::TILE_SIZE,_tiles.size() * gconsts::TILE_SIZE);
@@ -420,3 +425,7 @@ void World::unlockExit()
     exitTile->unlockExit();
 }
 
+void World::drawSelection(Window* window, Grid grid, bool selectable)
+{
+
+}
