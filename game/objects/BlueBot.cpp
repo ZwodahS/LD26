@@ -54,7 +54,11 @@ void BlueBot::processAI(World* world)
         hasSeen = true;
         seen = true;
     }
-    
+    if(getLocation() == lastSeen)
+    {
+        hasSeen = false;
+        seen = false;
+    }    
     if(seen && world->canSeePlayer(_location.row,_location.col,3))
     {
         world->attackPlayer(rand()%10 + 5, this);

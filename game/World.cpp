@@ -197,6 +197,7 @@ bool World::hasBot(int row, int col)
 
 bool World::unlock(PlayerBot* bot,int x , int y)
 {
+    std::cout << 1 << std::endl;
     Grid g = bot->getLocation();
     Grid target = Grid(g.row+y , g.col+x);
     if(target.row < 0 || target.col < 0 || target.col >= _tiles[0].size() || target.row >= _tiles.size())

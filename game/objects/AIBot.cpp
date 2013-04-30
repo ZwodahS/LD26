@@ -28,88 +28,43 @@ void AIBot::moveTowardLastSeen(World* world)
     int random = rand() % 2;
     direction::Direction firstTry;
     direction::Direction secondTry;
-    if(random == 0) // try move in the longest distance first
+    if(abs(g.col) > abs(g.row))
     {
-        if(abs(g.col) > abs(g.row))
+        if(g.col > 0)
         {
-            if(g.col > 0)
-            {
-                firstTry = direction::East;    
-            } 
-            else
-            {
-                firstTry = direction::West;
-            }
-            if(g.row > 0)
-            {
-                secondTry = direction::South;
-            }
-            else
-            {
-                secondTry = direction::North;
-            }
-            
+            firstTry = direction::East;    
+        } 
+        else
+        {
+            firstTry = direction::West;
+        }
+        if(g.row > 0)
+        {
+            secondTry = direction::South;
         }
         else
         {
-            if(g.row > 0)
-            {
-                firstTry = direction::South;
-            }
-            else if(g.row < 0)
-            {
-                firstTry = direction::North;
-            }
-            if(g.col > 0)
-            {
-                secondTry = direction::East;    
-            } 
-            else
-            {
-                secondTry = direction::West;
-            }
+            secondTry = direction::North;
         }
+        
     }
     else
     {
-        if(abs(g.col) < abs(g.row))
+        if(g.row > 0)
         {
-            if(g.col > 0)
-            {
-                firstTry = direction::East;    
-            } 
-            else
-            {
-                firstTry = direction::West;
-            }
-            if(g.row > 0)
-            {
-                secondTry = direction::South;
-            }
-            else
-            {
-                secondTry = direction::North;
-            }
-            
+            firstTry = direction::South;
         }
+        else if(g.row < 0)
+        {
+            firstTry = direction::North;
+        }
+        if(g.col > 0)
+        {
+            secondTry = direction::East;    
+        } 
         else
         {
-            if(g.row > 0)
-            {
-                firstTry = direction::South;
-            }
-            else
-            {
-                firstTry = direction::North;
-            }
-            if(g.col > 0)
-            {
-                secondTry = direction::East;    
-            } 
-            else
-            {
-                secondTry = direction::West;
-            }
+            secondTry = direction::West;
         }
     }
     g = world->gridAt(_location,firstTry);

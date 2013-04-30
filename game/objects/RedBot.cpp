@@ -55,6 +55,11 @@ void RedBot::processAI(World* world)
         hasSeen = true;
         seen = true;
     }
+    if(getLocation() == lastSeen)  //if arrive at location
+    {
+        hasSeen = false;
+        seen = false;
+    }
     
     if(seen && world->canSeePlayer(_location.row,_location.col,5))
     {
